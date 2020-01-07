@@ -1,10 +1,17 @@
-import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILURE, REGISTER_START, REGISTER_SUCCESS, REGISTER_FAILURE } from "./AuthTypes";
+import {
+  LOGIN_START,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  REGISTER_START,
+  REGISTER_SUCCESS,
+  REGISTER_FAILURE
+} from './AuthTypes'
 
 const initialState = {
   isLoading: false,
-  error: "",
-  isAuth: !!localStorage.getItem("token")
-};
+  error: '',
+  isAuth: !!localStorage.getItem('token')
+}
 
 const authReducer = (state = initialState, { payload, type }) => {
   switch (type) {
@@ -12,23 +19,41 @@ const authReducer = (state = initialState, { payload, type }) => {
       return {
         ...state,
         isLoading: true,
-        error: ""
-      };
+        error: ''
+      }
     case LOGIN_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        error: ""
-      };
+        error: ''
+      }
     case LOGIN_FAILURE:
       return {
         ...state,
-        isLoading: true,
+        isLoading: false,
         error: payload
-      };
+      }
+    case REGISTER_START:
+      return {
+        ...state,
+        isLoading: true,
+        error: ''
+      }
+    case REGISTER_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        error: ''
+      }
+    case REGISTER_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: payload
+      }
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default authReducer;
+export default authReducer
