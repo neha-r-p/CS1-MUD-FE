@@ -1,4 +1,4 @@
-import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILURE } from "./AuthTypes";
+import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILURE, REGISTER_START, REGISTER_SUCCESS, REGISTER_FAILURE } from "./AuthTypes";
 import axios from "axios";
 
 export const login = credentials => dispatch => {
@@ -14,3 +14,7 @@ export const login = credentials => dispatch => {
         // console.log("auth failure", err.response)
     });
 };
+
+export const register = credentials => dispatch => {
+
+}
