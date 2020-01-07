@@ -1,14 +1,15 @@
 import React from 'react';
 import AuthForm from './AuthForm';
+import { connect } from 'react-redux'
 
 
 function Login() {
   return (
     <div>
         <AuthForm isLogin={true} />
-        Login
     </div>
   );
 }
 
-export default Login;
+
+export default connect()(Login);

@@ -3,6 +3,8 @@ import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import Button from "@material-ui/core/Button";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import { login } from '../../store/auth/AuthActions'
+import { connect } from 'react-redux'
 
 const useStyles = makeStyles({
   root: {
@@ -14,7 +16,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function AuthForm(props) {
+ function AuthForm(props) {
   const classes = useStyles();
 
   const handleSubmit = e => {
@@ -69,3 +71,6 @@ export default function AuthForm(props) {
     </div>
   );
 }
+
+
+export default connect(null, {login})(AuthForm)

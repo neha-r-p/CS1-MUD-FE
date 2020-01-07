@@ -5,7 +5,6 @@ function Register() {
   return (
     <div>
         <AuthForm isLogin={false} />
-        Register
     </div>
   );
 }
