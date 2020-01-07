@@ -1,13 +1,16 @@
 import React from 'react'
 import {Link, withRouter} from "react-router-dom";
 //Components
-import Avatar from "@material-ui/core/Avatar";
+// import Avatar from "@material-ui/core/Avatar";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 //Styles
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Button from "@material-ui/core/Button";
+//logo
+import creatures from "../../assets/creatures3_.png"
+
 import {connect} from "react-redux";
 import authReducer from "../../store/auth/AuthReducers";
 import {logout} from "../../store/auth/AuthActions";
@@ -29,11 +32,11 @@ function Navbar(props) {
         <div className={classes.root}>
             <AppBar>
                 <Toolbar variant="dense">
-                    <Avatar alt="Logo" src={'/logo512.png'}/>
+                    <img src={creatures} alt="Logo" />
                     <Typography variant={"h5"}
                                 className={classes.title}
                                 onClick={() => props.history.push("/")}>
-                        Logo
+                        The Adventuriest Adventure Game
                     </Typography>
                     {console.log("AUTH ", props.isAuth)}
                     {!props.isAuth && <Button component={Link} to={'/login'} color={"secondary"}>Login</Button>}
