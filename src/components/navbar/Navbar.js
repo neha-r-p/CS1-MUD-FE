@@ -39,7 +39,7 @@ function Navbar(props) {
                     {!props.isAuth && <Button component={Link} to={'/login'} color={"secondary"}>Login</Button>}
                     {!props.isAuth && <Button component={Link} to={'/register'} color={"secondary"}>Register</Button>}
                     {props.isAuth && <Button component={Link} to={'/adventure-game'} color={"secondary"}>Game</Button>}
-                    {props.isAuth && <Button onClick={() =>  localStorage.removeItem('token')} color={"secondary"}>Log out</Button>}
+                    {props.isAuth && <Button  onClick={() => props.logout()} color={"secondary"}>Log out</Button>}
                 </Toolbar>
             </AppBar>
         </div>
