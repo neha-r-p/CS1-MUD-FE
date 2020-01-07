@@ -1,14 +1,12 @@
-import React from 'react';
-import AuthForm from './AuthForm';
-
+import React from 'react'
+import AuthForm from './AuthForm'
 
 function Login() {
   return (
     <div>
-        <AuthForm isLogin={true} />
-        Login
+      <AuthForm isLogin={true} />
     </div>
-  );
+  )
 }
 
-export default Login;
+export default Login
