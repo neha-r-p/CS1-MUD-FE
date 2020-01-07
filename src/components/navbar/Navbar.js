@@ -8,6 +8,9 @@ import Typography from "@material-ui/core/Typography";
 //Styles
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Button from "@material-ui/core/Button";
+import {connect} from "react-redux";
+import authReducer from "../../store/auth/AuthReducers";
+import {logout} from "../../store/auth/AuthActions";
 
 const useStyles = makeStyles({
     root: {
@@ -32,12 +35,21 @@ function Navbar(props) {
                                 onClick={() => props.history.push("/")}>
                         Logo
                     </Typography>
-                    <Button component={Link} to={'/login'} color={"secondary"}>Login</Button>
-                    <Button component={Link} to={'/register'} color={"secondary"}>Register</Button>
+                    {console.log("AUTH ", props.isAuth)}
+                    {!props.isAuth && <Button component={Link} to={'/login'} color={"secondary"}>Login</Button>}
+                    {!props.isAuth && <Button component={Link} to={'/register'} color={"secondary"}>Register</Button>}
+                    {props.isAuth && <Button component={Link} to={'/adventure-game'} color={"secondary"}>Game</Button>}
+                    {props.isAuth && <Button  onClick={() => props.logout(props.history)} color={"secondary"}>Log out</Button>}
                 </Toolbar>
             </AppBar>
         </div>
     )
 }
 
-export default withRouter(Navbar)
+const mapStateToProps = state => {
+    return {
+        isAuth: state.authReducer.isAuth
+    }
+}
+
+export default connect(mapStateToProps, {logout})(withRouter(Navbar))
