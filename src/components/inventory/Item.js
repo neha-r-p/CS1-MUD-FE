@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function Item() {
+export default function Item(props) {
     return (
-        <div>
-            ITEM
-        </div>
+        <ul>
+           <li>{props.item.item_name}</li> 
+        </ul>
     )
 }
