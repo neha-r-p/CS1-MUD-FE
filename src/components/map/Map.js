@@ -7,11 +7,11 @@ import {GAME_HEIGHT, GAME_WIDTH} from "../game/utils";
 const useStyles = makeStyles({
     map: {
         position: 'relative',
-        top: '0px',
-        left: '0px',
+        top: '0',
+        left: '0',
         width: GAME_WIDTH,
         height: GAME_HEIGHT,
-        border: '4px solid white',
+        border: '4px solid #543636',
     },
     row: {
         whiteSpace: "pre-wrap",
@@ -27,18 +27,20 @@ const useStyles = makeStyles({
     room: {
         width: ROOM_WIDTH,
         height: ROOM_HEIGHT,
-        background: '#ff000a'
+        // background: '#ff000a',
+        border: '2px solid pink',
+        borderRadius: '4px'
     },
     direction: {
         width: TAIL_SIZE * 2,
         height: DIRECTION_SIZE,
         top: ROOM_HEIGHT / 2,
-        background: '#87ff00'
+        background: '#98ff9b',
     },
     directionUp: {
         width: DIRECTION_SIZE,
         height: TAIL_SIZE,
-        background: '#87ff00',
+        background: '#98ff9b',
     },
     empty: {}
 })

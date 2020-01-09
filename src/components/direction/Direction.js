@@ -9,23 +9,20 @@ import Player from "../player/Player";
 
 const useStyle = makeStyle({
     root: {
-        border: '4px solid white',
-        height: 195
+        // height: 140
     },
     key: {
         margin: '3px',
+        width: 40,
+        height: 'auto'
     },
     keys: {
         padding: 10
     },
-    display: {
-        background: 'white',
-        borderTop: '4px solid #e1c9c9',
-        height: 30,
-        marginTop: 15,
-    },
-    disable: {
-        pointerEvents: "none",
+    title:{
+        borderBottom: '1px solid black',
+        borderTop: '1px solid black',
+        paddingLeft: 10
     }
 })
 
@@ -34,7 +31,7 @@ function Direction() {
 
     return (
         <div className={classes.root}>
-            {/*<Typography variant={"subtitle1"}><Box textAlign={"left"}>Choose a direction:</Box></Typography>*/}
+            {/*<Typography variant={"subtitle1"} className={classes.title}><Box textAlign={"left"}>Choose a direction:</Box></Typography>*/}
             <div className={classes.keys}>
                 <Key direction={0}/>
                 <div>
@@ -42,9 +39,6 @@ function Direction() {
                     <Key direction={180}/>
                     <Key direction={90} name={"right"}/>
                 </div>
-            </div>
-            <div className={classes.display}>
-                You go west
             </div>
         </div>
     )
