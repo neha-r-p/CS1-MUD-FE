@@ -1,6 +1,9 @@
 import React from 'react'
 //styles
 import makeStyles from '@material-ui/core/styles/makeStyles'
+import apple from '../../assets/apple.png'
+import orange from '../../assets/orange.png'
+import banana from '../../assets/banana.png'
 
 const useStyles = makeStyles({
   itemBox: {
@@ -13,12 +16,22 @@ const useStyles = makeStyles({
   }
 })
 
-export default function Item(props) {
+export default function Item({ item }) {
   const classes = useStyles()
-
+  const { item_name } = item
+  function chooseImg() {
+    switch (item_name) {
+      case 'apple':
+        return apple
+      case 'banana':
+        return banana
+      case 'orange':
+        return orange
+    }
+  }
   return (
-
-    <div className={classes.itemBox}>{props.item.item_name}</div> 
-
+    <div className={classes.itemBox}>
+      <img src={chooseImg()} alt={item_name} style={{width: '90%', height: '90%', margin:'0 auto'}} />
+    </div>
   )
 }
