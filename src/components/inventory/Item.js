@@ -31,7 +31,11 @@ export default function Item({ item }) {
   }
   return (
     <div className={classes.itemBox}>
-      <img src={chooseImg()} alt={item_name} style={{width: '90%', height: '90%', margin:'1px auto'}} />
+      <img
+        src={chooseImg()}
+        alt={item_name}
+        style={{ width: '90%', height: '90%', margin: '1px auto' }}
+      />
     </div>
   )
 }
