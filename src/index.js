@@ -19,7 +19,7 @@ import combineReducers from "./store/index";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 
-const store = createStore(combineReducers, applyMiddleware(thunk));
+export const store = createStore(combineReducers, applyMiddleware(thunk));
 
 //Theme config
 let theme = createMuiTheme({
