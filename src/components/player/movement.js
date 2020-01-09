@@ -26,7 +26,7 @@ function observeBoundaries(oldPos, newPos) {
 function dispatchMove(direction) {
     const oldPos = store.getState().player.position
     const stamina = store.getState().player.stamina
-    if (stamina > 0){
+    if (stamina > 0) {
         store.dispatch({type: REDUCE_STAMINA, payload: {stamina: stamina - 1}})
         store.dispatch({type: MOVE_PLAYER, payload: {position: observeBoundaries(oldPos, getNewPosition(direction))}})
     } else {
@@ -55,11 +55,4 @@ export function handleKeyDown(e, d) {
             console.log(e.keyCode)
     }
 }
-export default function handleMovement(player) {
 
-    window.addEventListener('keydown', (e) => {
-        handleKeyDown(e)
-    })
-
-    return player
-}

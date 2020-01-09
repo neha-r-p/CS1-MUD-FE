@@ -3,7 +3,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles'
 import character from './char.png'
 import {ROOM_HEIGHT, ROOM_WIDTH} from "../map/utils";
 import {connect} from "react-redux";
-import handleMovement from "./movement";
+import handleMovement, {handleKeyDown} from "./movement";
 
 const useStyles = makeStyles({
     player: props => ({
@@ -20,6 +20,19 @@ const useStyles = makeStyles({
 
 function Player(props) {
     const classes = useStyles(props)
+
+    React.useEffect((e) => {
+        window.addEventListener('keydown', (e) => {
+            handleKeyDown(e)
+        })
+    }, []);
+
+    React.useEffect((e) => {
+        window.removeEventListener('keydown', () => {
+            handleKeyDown(e)
+        })
+    }, []);
+
     return (
         <div className={classes.player}/>
     )
@@ -31,4 +44,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(handleMovement(Player))
+export default connect(mapStateToProps)(Player)

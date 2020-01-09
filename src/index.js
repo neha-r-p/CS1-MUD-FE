@@ -25,10 +25,10 @@ export const store = createStore(combineReducers, applyMiddleware(thunk));
 let theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#fe0014"
+      main: "#c433dd"
     },
     secondary: {
-      main: "#fff7f7"
+      main: "#fff7f7",
     }
   }
 });

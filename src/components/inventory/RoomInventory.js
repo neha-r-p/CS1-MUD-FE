@@ -9,7 +9,7 @@ import { connect } from 'react-redux'
 const useStyles = makeStyles({
   root: {
     color: '#FFF',
-    backgroundColor: '#B89090',
+    backgroundColor: '#F7B801',
     minWidth: '200px',
     height: '175px'
   },
@@ -23,7 +23,7 @@ const useStyles = makeStyles({
     display: 'flex',
     width: '46px',
     height: '46px',
-    backgroundColor: '#382727',
+    backgroundColor: '#ffe1b2',
     margin: '3px',
     border: '1px solid #92734F'
   }
