@@ -11,7 +11,7 @@ import axios from 'axios'
 export const login = (credentials, history) => dispatch => {
     dispatch({type: LOGIN_START})
     axios
-        .post('https://lambda-mud-test.herokuapp.com/api/login/', credentials)
+        .post('https://dungeon-adv-be.herokuapp.com/api/login/', credentials)
         .then(res => {
             dispatch({type: LOGIN_SUCCESS, payload: res.data})
             localStorage.setItem('token', res.data.key)
@@ -31,9 +31,10 @@ export const logout = (history) => {
 };
 
 export const register = (credentials, history) => dispatch => {
+    console.log(credentials)
     dispatch({type: REGISTER_START})
     axios
-        .post('https://lambda-mud-test.herokuapp.com/api/registration/', credentials)
+        .post('https://dungeon-adv-be.herokuapp.com/api/registration/', credentials)
         .then(res => {
             dispatch({type: REGISTER_SUCCESS, payload: res.data})
             history.push('/login')
