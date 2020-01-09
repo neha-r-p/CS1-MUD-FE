@@ -5,6 +5,7 @@ import RoomInventory from '../inventory/RoomInventory';
 import PlayerInventory from '../inventory/PlayerInventory';
 //styles
 import makeStyles from '@material-ui/core/styles/makeStyles'
+import Stamina from "../stamina/Stamina";
 
 const useStyles = makeStyles({
     container: {
@@ -16,7 +17,6 @@ const useStyles = makeStyles({
     },
     containerRight: {
         display: 'flex',
-        justifyContent: 'space-between',
         width: '300px',
         flexDirection: 'column',
         // justifyContent: 'space-between',
@@ -31,6 +31,7 @@ function Game() {
        <div className={classes.container}>
            <Map />
            <div className={classes.containerRight}>
+               <Stamina/>
                <Direction />
                <RoomInventory />
                <PlayerInventory />
