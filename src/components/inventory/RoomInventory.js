@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import Item from './Item'
 //styles
 import makeStyles from '@material-ui/core/styles/makeStyles'
+//store
+import { connect } from 'react-redux'
 
 
 const useStyles = makeStyles({
@@ -27,11 +29,11 @@ const useStyles = makeStyles({
   }
 })
 
-const RoomInventory = () => {
+const RoomInventory = props => {
   const classes = useStyles()
 
-  const [roomItems, setRoomItems] = useState(dummyItems)
-  const numOfItems = dummyItems.length - 1
+  const [roomItems, setRoomItems] = useState(props.roomItems)
+  const numOfItems = roomItems.length - 1
   const emptyItems = new Array(9 - numOfItems).fill(null)
 
   const completeRoomItems = roomItems.concat(emptyItems)
@@ -52,22 +54,28 @@ const RoomInventory = () => {
   )
 }
 
-export default RoomInventory
-
-const dummyItems = [
-    {
-      item_id: 3,
-      item_name: 'banana',
-      item_description: 'ripe',
-      has_player: 0,
-      in_room: 1
-    },
-    {
-      item_id: 4,
-      item_name: 'orange',
-      item_description: 'blood',
-      has_player: 0,
-      in_room: 1
+const mapStateToProps = state => {
+    return {
+        roomItems: state.inventory.roomItems
     }
-  ]
+}
+
+export default connect(mapStateToProps)(RoomInventory)
+
+// const dummyItems = [
+//     {
+//       item_id: 3,
+//       item_name: 'banana',
+//       item_description: 'ripe',
+//       has_player: 0,
+//       in_room: 1
+//     },
+//     {
+//       item_id: 4,
+//       item_name: 'orange',
+//       item_description: 'blood',
+//       has_player: 0,
+//       in_room: 1
+//     }
+//   ]
   
