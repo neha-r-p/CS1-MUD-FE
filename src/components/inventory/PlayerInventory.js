@@ -38,7 +38,7 @@ const PlayerInventory = () => {
 
   return (
     <div className={classes.root}>
-      <h3>Player Inventory:</h3>
+      <h3>INVENTORY</h3>
       <div className={classes.itemBoxes}>
         {completePlayerItems.map(item =>
           item ? (

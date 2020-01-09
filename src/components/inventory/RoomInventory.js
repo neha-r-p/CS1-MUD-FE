@@ -37,7 +37,7 @@ const RoomInventory = () => {
 
   return (
     <div className={classes.root}>
-      <h3>Room Inventory</h3>
+      <h3>CURRENT ROOM</h3>
       <div className={classes.itemBoxes}>
         {completeRoomItems.map(item =>
           item ? (
