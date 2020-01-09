@@ -10,9 +10,8 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import Button from "@material-ui/core/Button";
 //logo
 import creatures from "../../assets/creatures3_.png"
-
+//redux
 import {connect} from "react-redux";
-import authReducer from "../../store/auth/AuthReducers";
 import {logout} from "../../store/auth/AuthActions";
 
 const useStyles = makeStyles({
