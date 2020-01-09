@@ -8,14 +8,15 @@ import makeStyles from '@material-ui/core/styles/makeStyles'
 
 const useStyles = makeStyles({
     container: {
+        position: 'relative',
+        width: '1100px',
+        height: '630px',
+        margin: '20px auto',
         display: 'flex',
-        justifyContent: 'space-evenly',
-        width: '1000px',
-        height: '600px',
     },
     containerRight: {
         display: 'flex',
-        justifyContent: 'space-evenly',
+        justifyContent: 'space-between',
         width: '300px',
         flexDirection: 'column',
         // justifyContent: 'space-between',
@@ -28,7 +29,6 @@ function Game() {
 
    return(
        <div className={classes.container}>
-           GAME PAGE
            <Map />
            <div className={classes.containerRight}>
                <Direction />
