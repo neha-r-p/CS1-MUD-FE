@@ -15,6 +15,8 @@ const useStyles = makeStyles({
     },
     containerRight: {
         display: 'flex',
+        justifyContent: 'space-evenly',
+        width: '300px',
         flexDirection: 'column',
         // justifyContent: 'space-between',
         border: '1px solid black'
