@@ -12,6 +12,7 @@ const useStyles = makeStyles({
         width: GAME_WIDTH,
         height: GAME_HEIGHT,
         border: '4px solid #543636',
+        background: 'white',
     },
     row: {
         whiteSpace: "pre-wrap",
@@ -28,19 +29,19 @@ const useStyles = makeStyles({
         width: ROOM_WIDTH,
         height: ROOM_HEIGHT,
         // background: '#ff000a',
-        border: '2px solid pink',
+        border: '2px solid #F4298F',
         borderRadius: '4px'
     },
     direction: {
         width: TAIL_SIZE * 2,
         height: DIRECTION_SIZE,
         top: ROOM_HEIGHT / 2,
-        background: '#98ff9b',
+        background: '#04BE51',
     },
     directionUp: {
         width: DIRECTION_SIZE,
         height: TAIL_SIZE,
-        background: '#98ff9b',
+        background: '#04BE51',
     },
     empty: {}
 })

@@ -8,6 +8,7 @@ const useStyle = makeStyle({
     root: {
         paddingBottom: "10px",
         padding: 10,
+        background: 'white'
     },
     lightGray: {
         height: "10px",

@@ -6,7 +6,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles'
 const useStyles = makeStyles({
   root: {
     color: '#FFF',
-    backgroundColor: '#543636',
+    backgroundColor: '#FF800A',
     minWidth: '200px',
     height: '250px'
   },
@@ -20,7 +20,7 @@ const useStyles = makeStyles({
     display: 'flex',
     width: '46px',
     height: '46px',
-    backgroundColor: '#382727',
+    backgroundColor: '#ffe1b2',
     margin: '3px',
     border: '1px solid #92734F'
   }

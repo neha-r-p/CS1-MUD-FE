@@ -10,6 +10,7 @@ import Player from "../player/Player";
 const useStyle = makeStyle({
     root: {
         // height: 140
+        background: 'white'
     },
     key: {
         margin: '3px',
