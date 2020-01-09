@@ -23,7 +23,7 @@ function App() {
                 <Route exact path={"/"} component={Home}/>
                 <Route path={"/login"} component={Login}/>
                 <Route path={"/register"} component={Register}/>
-                <AuthRoute path={"/adventure-game"} component={Game}/>
+                <Route path={"/adventure-game"} component={Game}/>
                 {/* {private routes} */}
             </Switch>
         </div>

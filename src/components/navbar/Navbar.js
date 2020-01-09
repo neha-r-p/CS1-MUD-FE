@@ -35,7 +35,7 @@ function Navbar(props) {
                     <Typography variant={"h5"}
                                 className={classes.title}
                                 onClick={() => props.history.push("/")}>
-                        The Adventuriest Adventure Game
+                        Team Egg Adventure Game
                     </Typography>
                     {console.log("AUTH ", props.isAuth)}
                     {!props.isAuth && <Button component={Link} to={'/login'} color={"secondary"}>Login</Button>}
