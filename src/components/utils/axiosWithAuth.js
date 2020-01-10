@@ -3,7 +3,7 @@ require("dotenv").config();
 
 const axiosWithAuth = () => {
     const token = localStorage.getItem("token");
-    const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:5000";
+    const apiUrl = process.env.REACT_APP_API_URL || "https://dungeon-adv-be.herokuapp.com";
 
     return axios.create({
         baseURL: apiUrl,

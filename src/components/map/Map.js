@@ -1,8 +1,10 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import makeStyles from '@material-ui/core/styles/makeStyles'
-import {DIRECTION_SIZE, ROOM_HEIGHT, ROOM_WIDTH, TAIL_SIZE} from "./utils";
+import {DIRECTION_LENGTH, DIRECTION_POSITION, DIRECTION_SIZE, ROOM_HEIGHT, ROOM_WIDTH, TAIL_SIZE} from "./utils";
 import Player from "../player/Player";
 import {GAME_HEIGHT, GAME_WIDTH} from "../game/utils";
+import {connect} from "react-redux";
+import {getRooms} from "../../store/map/mapActions";
 
 const useStyles = makeStyles({
     map: {
@@ -17,7 +19,6 @@ const useStyles = makeStyles({
     row: {
         whiteSpace: "pre-wrap",
         display: "flex",
-        justifyContent: 'center',
     },
     tail: {
         width: TAIL_SIZE,
@@ -28,95 +29,116 @@ const useStyles = makeStyles({
     room: {
         width: ROOM_WIDTH,
         height: ROOM_HEIGHT,
+        position: 'relative',
         // background: '#ff000a',
+        margin: TAIL_SIZE,
         border: '2px solid #F4298F',
         borderRadius: '4px'
     },
-    direction: {
-        width: TAIL_SIZE * 2,
-        height: DIRECTION_SIZE,
-        top: ROOM_HEIGHT / 2,
-        background: '#04BE51',
-    },
-    directionUp: {
+    north: {
+        top: DIRECTION_POSITION,
         width: DIRECTION_SIZE,
-        height: TAIL_SIZE,
-        background: '#04BE51',
+        position: 'absolute',
+        left: '14px',
+        height: DIRECTION_LENGTH,
+        background: '#820263',
     },
-    empty: {}
+    south: {
+        bottom: DIRECTION_POSITION,
+        left: '14px',
+        width: DIRECTION_SIZE,
+        position: 'absolute',
+        height: DIRECTION_LENGTH,
+        background: '#820263',
+    },
+    west: {
+        right: ROOM_WIDTH - 2,
+        width: DIRECTION_LENGTH,
+        position: 'absolute',
+        height: DIRECTION_SIZE,
+        top: "14px",
+        background: '#1b22be',
+    },
+    east: {
+        left: ROOM_WIDTH - 2,
+        width: DIRECTION_LENGTH,
+        position: 'absolute',
+        height: DIRECTION_SIZE,
+        top: "14px",
+        background: '#04BE51',
+    }
 })
 
-function Map() {
+function Map(props) {
     const classes = useStyles()
-    let arr = str.split(/\n/)
 
-    function defineTile(type) {
-        if (type == " ") {
-            return classes.empty
+    useEffect(() => {
+        props.getRooms()
+    }, [])
+
+
+    function defineDirection(rooms) {
+        let map = []
+        if (rooms.length > 0) {
+            let row = []
+            let y = 0
+            for (let i = 1; i < 100; i++) {
+                const item = []
+                const room = rooms[i]
+                const fields = room.fields
+                if (fields) {
+                    if (fields.y != 0 && fields.y > y) {
+                        map.push(row)
+                        y++
+                        row = []
+                    }
+                    for (const key in fields) {
+                        if (key === "n_to" && fields[key] > 0) {
+                            item.push(<div className={classes.north}></div>)
+                        }
+                        if (key === 's_to' && fields[key] > 0) {
+                            item.push(<div className={classes.south}></div>)
+                        }
+                        if (key === 'e_to' && fields[key] > 0) {
+                            item.push(<div className={classes.east}></div>)
+                        }
+                        if (key === 'w_to' && fields[key] > 0) {
+                            item.push(<div className={classes.west}></div>)
+                        }
+                    }
+                    row.push(item)
+                }
+
+            }
+            console.log("MAP ", map)
         }
-        if (type == "#") {
-            return classes.border
-        }
-        if (type == "--") {
-            return classes.direction
-        }
-        if (type == "|") {
-            return classes.directionUp
-        }
-        if (type.match(/^[0-9]+$/)) {
-            return classes.room
-        }
+        return map
     }
 
     return (
         <div className={classes.map}>
-            {
-                arr.map(item =>
-                    <div className={classes.row}>
-                        {
-                            item.split(/([0-9][0-9][0-9]|--|\s)/).map(atr => atr.length > 0 &&
-                                <div className={`${classes.tail} ${defineTile(atr)}`}></div>)
-                        }
-                    </div>
-                )
-            }
+            {defineDirection(props.rooms).map((row, index) => {
+                return <div className={classes.row}>
+                    {index % 2 === 0 ?
+                        row.map(item => {
+                            return <div className={`${classes.tail} ${classes.room}`}>{item}</div>
+                        })
+                        : row.reverse().map(item => {
+                            return <div className={`${classes.tail} ${classes.room}`}>{item}</div>
+                        })
+                    }
+
+                </div>
+            })}
             <Player/>
         </div>
     )
 }
 
-export default Map
+const mapStatesToProps = state => {
+    return {
+        rooms: state.map.rooms
+    }
+}
 
-const str =
-    "# # # # # # # # # # # # # # # # # # # # # # # # # # \n" +
-    "#                                                  #\n" +
-    "# 099--098--097--096--095--094--093--092--091--090 #\n" +
-    "#                                               |  #\n" +
-    "#                                               |  #\n" +
-    "# 080--081--082--083--084--085--086--087--088--089 #\n" +
-    "#  |                                               #\n" +
-    "#  |                                               #\n" +
-    "# 079--078--077--076--075--074--073--072--071--070 #\n" +
-    "#                                               |  #\n" +
-    "#                                               |  #\n" +
-    "# 060--061--062--063--064--065--066--067--068--069 #\n" +
-    "#  |                                               #\n" +
-    "#  |                                               #\n" +
-    "# 059--058--057--056--055--054--053--052--051--050 #\n" +
-    "#                                               |  #\n" +
-    "#                                               |  #\n" +
-    "# 040--041--042--043--044--045--046--047--048--049 #\n" +
-    "#  |                                               #\n" +
-    "#  |                                               #\n" +
-    "# 039--038--037--036--035--034--033--032--031--030 #\n" +
-    "#                                               |  #\n" +
-    "#                                               |  #\n" +
-    "# 020--021--022--023--024--025--026--027--028--029 #\n" +
-    "#  |                                               #\n" +
-    "#  |                                               #\n" +
-    "# 019--018--017--016--015--014--013--012--011--010 #\n" +
-    "#                                               |  #\n" +
-    "#                                               |  #\n" +
-    "# 000--001--002--003--004--005--006--007--008--009 #\n" +
-    "#                                                  #\n" +
-    "# # # # # # # # # # # # # # # # # # # # # # # # # # "
+export default connect(mapStatesToProps, {getRooms})(Map)

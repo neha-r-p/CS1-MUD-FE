@@ -6,18 +6,20 @@ import PlayerInventory from '../inventory/PlayerInventory';
 //styles
 import makeStyles from '@material-ui/core/styles/makeStyles'
 import Stamina from "../stamina/Stamina";
+import {GAME_HEIGHT, GAME_WIDTH} from "./utils";
 
 const useStyles = makeStyles({
     container: {
         position: 'relative',
-        width: '1100px',
-        height: '630px',
+        width: GAME_WIDTH + 200,
+        height: GAME_HEIGHT,
         margin: '20px auto',
         display: 'flex',
+        justifyContent: 'center'
     },
     containerRight: {
         display: 'flex',
-        width: '300px',
+        width: '400px',
         flexDirection: 'column',
         // justifyContent: 'space-between',
         border: '4px solid #543636'

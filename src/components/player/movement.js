@@ -1,6 +1,6 @@
 import React from 'react'
 import {MOVE_PLAYER, REDUCE_STAMINA} from "../../store/player/playerTypes";
-import {ROOM_HEIGHT, ROOM_WIDTH, TAIL_SIZE} from "../map/utils";
+import {PLAYER_X, PLAYER_Y, ROOM_HEIGHT, ROOM_WIDTH, TAIL_SIZE} from "../map/utils";
 import {store} from '../../index'
 import {GAME_HEIGHT, GAME_WIDTH} from "../game/utils";
 
@@ -19,7 +19,7 @@ function getNewPosition(direction) {
 }
 
 function observeBoundaries(oldPos, newPos) {
-    return (newPos[0] >= ROOM_WIDTH * 3 && newPos[0] < GAME_WIDTH - ROOM_WIDTH * 3) &&
+    return (newPos[0] >= PLAYER_X  && newPos[0] < (GAME_WIDTH - 100)  - PLAYER_X) &&
     (newPos[1] >= 0 && newPos[1] < GAME_HEIGHT - ROOM_HEIGHT) ? newPos : oldPos
 }
 
@@ -30,7 +30,7 @@ function dispatchMove(direction) {
         store.dispatch({type: REDUCE_STAMINA, payload: {stamina: stamina - 1}})
         store.dispatch({type: MOVE_PLAYER, payload: {position: observeBoundaries(oldPos, getNewPosition(direction))}})
     } else {
-        store.dispatch({type: MOVE_PLAYER, payload: {position: [ROOM_HEIGHT * 3, ROOM_HEIGHT - 15]}})
+        store.dispatch({type: MOVE_PLAYER, payload: {position: [PLAYER_X, PLAYER_Y]}})
         store.dispatch({type: REDUCE_STAMINA, payload: {stamina: 100}})
     }
 
