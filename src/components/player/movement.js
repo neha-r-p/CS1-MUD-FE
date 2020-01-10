@@ -31,13 +31,11 @@ function generateMap() {
             if (fields) {
                 console.log("!(fields.y === y) ",!(fields.y === y))
                 if (!(fields.y === y)) {
-                    // console.log("fields.y === y: ", fields.y === y, "; fields.y =", fields.y, ", y = ", y)
                     if (!(y % 2 === 0)) {
-                        console.log("NORMAL ", i)
-                        map.unshift(row)
-                    } else {
-                        console.log("REVERSE ", i)
                         map.unshift(row.reverse())
+                    } else {
+                        // row.reverse()
+                        map.unshift(row)
 
                     }
                     y--
@@ -45,7 +43,6 @@ function generateMap() {
                     row.unshift(fields)
                 }else {
                     row.unshift(fields)
-                    // console.log("item was added ", y)
                 }
             }
 
@@ -93,8 +90,8 @@ function dispatchMove(newPos) {
 function attemptMove(direction) {
     const newPos = getNewPosition(direction)
     generateMap()
-    // console.log("observePath(generateMap(), newPos, direction) ", observePath(generateMap(), store.getState().player.position, direction))
-    if (observeBoundaries(newPos)) {
+    console.log("observePath(generateMap(), newPos, direction) ", observePath(generateMap(), store.getState().player.position, direction))
+    if (observeBoundaries(newPos) && observePath(generateMap(), store.getState().player.position, direction)) {
         dispatchMove(newPos)
     }
 }

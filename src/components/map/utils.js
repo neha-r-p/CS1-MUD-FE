@@ -8,5 +8,5 @@ export const DIRECTION_POSITION = -37
 
 
 export const PLAYER_X = 0
-export const PLAYER_Y = 0
-// export const PLAYER_Y = ROOM_WIDTH * (8 * 2)
+// export const PLAYER_Y = 0
+export const PLAYER_Y = ROOM_WIDTH * (9 * 2)
