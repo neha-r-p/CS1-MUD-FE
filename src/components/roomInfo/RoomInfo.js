@@ -1,15 +1,27 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 
 //store
 import { connect } from 'react-redux'
+import { currentRoom } from '../../store/player/playerActions'
 
-const RoomInfo = () => {
+const RoomInfo = props => {
+    useEffect(() => {
+        props.currentRoom(props.player)
+    },[props.player.position])
+
     return (
         <div>
-            <h3>Current room name:</h3>
-            <p>Current room description</p>
+            <h3>{props.player.title}:</h3>
+            <p>{props.player.description}</p>
         </div>
     )
 }
 
-export default RoomInfo
+const mapStateToProps = state => {
+    return {
+        player: state.player,
+        rooms: state.map.rooms
+    }
+}
+
+export default connect(mapStateToProps, { currentRoom })(RoomInfo)

@@ -86,9 +86,10 @@ function Map(props) {
                 const item = []
                 const room = rooms[i]
                 const fields = room.fields
+                console.log(fields)
                 if (fields) {
                     if (fields.y != 0 && fields.y > y) {
-                        map.push(row)
+                        map.unshift(row)
                         y++
                         row = []
                     }

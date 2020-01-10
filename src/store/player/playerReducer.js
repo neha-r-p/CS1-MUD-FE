@@ -2,13 +2,18 @@ import {
   MOVE_PLAYER,
   REDUCE_STAMINA,
   INCREASE_STAMINA,
-  GET_ROOM_INFO
+  GET_CURRENT_ROOM,
+  INIT_PLAYER_START,
+  INIT_PLAYER_SUCCESS,
+  INIT_PLAYER_FAILURE
 } from './playerTypes'
 import { PLAYER_X, PLAYER_Y, ROOM_HEIGHT } from '../../components/map/utils'
 
 const initialState = {
   position: [PLAYER_X, PLAYER_Y],
-  stamina: 100
+  stamina: 100,
+  title: "",
+  description: ""
 }
 
 const playerReducer = (state = initialState, { payload, type }) => {
@@ -28,6 +33,27 @@ const playerReducer = (state = initialState, { payload, type }) => {
         ...state,
         stamina: payload.stamina
       }
+    case GET_CURRENT_ROOM:
+        return {
+            ...state,
+            title: payload.title,
+            description: payload.description
+        }
+    case INIT_PLAYER_START:
+        return {
+            ...state
+        }
+    case INIT_PLAYER_SUCCESS:
+        return {
+            ...state,
+            title: payload.title,
+            description: payload.description
+        }
+    case INIT_PLAYER_FAILURE:
+        return {
+            ...state,
+            error: payload
+        }
     default:
       return state
   }
