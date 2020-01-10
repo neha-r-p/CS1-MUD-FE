@@ -13,7 +13,7 @@ const useStyles = makeStyles({
         left: '0',
         width: GAME_WIDTH,
         height: GAME_HEIGHT,
-        border: '4px solid #543636',
+        // border: '4px solid #543636',
         background: 'white',
     },
     row: {
@@ -31,7 +31,8 @@ const useStyles = makeStyles({
         height: ROOM_HEIGHT,
         position: 'relative',
         // background: '#ff000a',
-        margin: TAIL_SIZE,
+        marginRight: 35,
+        marginBottom: 35,
         border: '2px solid #F4298F',
         borderRadius: '4px'
     },
@@ -39,13 +40,13 @@ const useStyles = makeStyles({
         top: DIRECTION_POSITION,
         width: DIRECTION_SIZE,
         position: 'absolute',
-        left: '14px',
+        left: 10,
         height: DIRECTION_LENGTH,
         background: '#820263',
     },
     south: {
         bottom: DIRECTION_POSITION,
-        left: '14px',
+        left: 10,
         width: DIRECTION_SIZE,
         position: 'absolute',
         height: DIRECTION_LENGTH,
@@ -56,7 +57,7 @@ const useStyles = makeStyles({
         width: DIRECTION_LENGTH,
         position: 'absolute',
         height: DIRECTION_SIZE,
-        top: "14px",
+        top: 10,
         background: '#1b22be',
     },
     east: {
@@ -64,7 +65,7 @@ const useStyles = makeStyles({
         width: DIRECTION_LENGTH,
         position: 'absolute',
         height: DIRECTION_SIZE,
-        top: "14px",
+        top: 10,
         background: '#04BE51',
     }
 })
@@ -77,40 +78,42 @@ function Map(props) {
     }, [])
 
 
-    function defineDirection(rooms) {
+    function defineDirection(ways) {
+        const rooms = ways.reverse()
+        console.log("rooms" , rooms)
         let map = []
+        console.log("LENGTH ", rooms.length)
         if (rooms.length > 0) {
             let row = []
-            let y = 0
-            for (let i = 1; i < 100; i++) {
+            let y = 9
+            for (let i = 0; i < rooms.length; i++) {
                 const item = []
                 const room = rooms[i]
                 const fields = room.fields
                 if (fields) {
-                    if (fields.y != 0 && fields.y > y) {
-                        map.push(row)
-                        y++
+                    if ( fields.y <= y) {
+                        map.unshift(row)
+                        y--
                         row = []
                     }
                     for (const key in fields) {
                         if (key === "n_to" && fields[key] > 0) {
-                            item.push(<div className={classes.north}></div>)
+                            item.unshift(<div className={classes.north}></div>)
                         }
                         if (key === 's_to' && fields[key] > 0) {
-                            item.push(<div className={classes.south}></div>)
+                            item.unshift(<div className={classes.south}></div>)
                         }
                         if (key === 'e_to' && fields[key] > 0) {
-                            item.push(<div className={classes.east}></div>)
+                            item.unshift(<div className={classes.east}></div>)
                         }
                         if (key === 'w_to' && fields[key] > 0) {
-                            item.push(<div className={classes.west}></div>)
+                            item.unshift(<div className={classes.west}></div>)
                         }
                     }
-                    row.push(item)
+                    row.unshift(item)
                 }
-
+                console.log(i)
             }
-            console.log("MAP ", map)
         }
         return map
     }
@@ -119,7 +122,7 @@ function Map(props) {
         <div className={classes.map}>
             {defineDirection(props.rooms).map((row, index) => {
                 return <div className={classes.row}>
-                    {index % 2 === 0 ?
+                    {!(index % 2 === 0) ?
                         row.map(item => {
                             return <div className={`${classes.tail} ${classes.room}`}>{item}</div>
                         })
