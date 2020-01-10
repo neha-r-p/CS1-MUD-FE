@@ -3,7 +3,7 @@ import {MOVE_PLAYER, REDUCE_STAMINA} from "../../store/player/playerTypes";
 import {PLAYER_X, PLAYER_Y, ROOM_HEIGHT, ROOM_WIDTH, TAIL_SIZE} from "../map/utils";
 import {store} from '../../index'
 import {GAME_HEIGHT, GAME_WIDTH} from "../game/utils";
-import {move} from "../../store/player/playerActions";
+
 
 function getNewPosition(direction) {
     const oldPos = store.getState().player.position
@@ -76,12 +76,12 @@ function observePath(rooms, newPos, d) {
     return false
 }
 
-function dispatchMove(newPos, direction) {
+function dispatchMove(newPos, direction, move) {
     const stamina = store.getState().player.stamina
     if (stamina > 0) {
         store.dispatch({type: REDUCE_STAMINA, payload: {stamina: stamina - 1}})
-        store.dispatch({type: MOVE_PLAYER, payload: {position: newPos}})
-        move({"direction": direction.slice(0, 1)})
+        // store.dispatch({type: MOVE_PLAYER, payload: {position: newPos}})
+        move({"direction": direction.slice(0, 1), position: newPos})
     } else {
         store.dispatch({type: MOVE_PLAYER, payload: {position: [PLAYER_X, PLAYER_Y]}})
         store.dispatch({type: REDUCE_STAMINA, payload: {stamina: 100}})
@@ -89,12 +89,11 @@ function dispatchMove(newPos, direction) {
 
 }
 
-function attemptMove(direction) {
+function attemptMove(direction, move) {
     const newPos = getNewPosition(direction)
     generateMap()
-    console.log("observePath(generateMap(), newPos, direction) ", observePath(generateMap(), store.getState().player.position, direction))
     if (observeBoundaries(newPos) && observePath(generateMap(), store.getState().player.position, direction)) {
-        dispatchMove(newPos, direction)
+        dispatchMove(newPos, direction, move)
     }
 }
 
@@ -112,21 +111,21 @@ function attemptMove(direction) {
 //
 // }
 
-export function handleKeyDown(e, d) {
+export function handleKeyDown(e, d, move) {
     e.preventDefault()
     switch (e.keyCode ? e.keyCode : d) {
         //left key, west
         case 37:
-            return attemptMove('w_to')
+            return attemptMove('w_to', move)
         //up key, north
         case 38:
-            return attemptMove('n_to')
+            return attemptMove('n_to', move)
         //right key, east
         case 39:
-            return attemptMove('e_to')
+            return attemptMove('e_to', move)
         //down key, south
         case 40:
-            return attemptMove('s_to')
+            return attemptMove('s_to', move)
         default:
             console.log(e.keyCode)
     }

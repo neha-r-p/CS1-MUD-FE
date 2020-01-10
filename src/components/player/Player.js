@@ -4,6 +4,7 @@ import character from './char.png'
 import {ROOM_HEIGHT, ROOM_WIDTH} from "../map/utils";
 import {connect} from "react-redux";
 import handleMovement, {handleKeyDown} from "./movement";
+import {move} from "../../store/player/playerActions";
 
 const useStyles = makeStyles({
     player: props => ({
@@ -23,7 +24,7 @@ function Player(props) {
 
     React.useEffect((e) => {
         window.addEventListener('keydown', (e) => {
-            handleKeyDown(e)
+            handleKeyDown(e, undefined, props.move)
         })
     }, []);
 
@@ -44,4 +45,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(Player)
+export default connect(mapStateToProps, {move})(Player)
