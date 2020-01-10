@@ -9,7 +9,7 @@ const axiosWithAuth = () => {
         baseURL: apiUrl,
         headers: {
             "Content-Type": "application/json",
-            Authorization: token
+            Authorization: `Token ${token}`
         }
     });
 };
