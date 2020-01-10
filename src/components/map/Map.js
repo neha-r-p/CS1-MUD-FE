@@ -90,30 +90,34 @@ function Map(props) {
                 const item = []
                 const room = rooms[i]
                 const fields = room.fields
-                if (fields) {
+                if (fields)     {
                     if ( fields.y <= y) {
-                        map.unshift(row)
+                        map.push(row)
                         y--
                         row = []
                     }
                     for (const key in fields) {
                         if (key === "n_to" && fields[key] > 0) {
-                            item.unshift(<div className={classes.north}></div>)
+                            item.push(<div className={classes.north}></div>)
                         }
                         if (key === 's_to' && fields[key] > 0) {
-                            item.unshift(<div className={classes.south}></div>)
+                            item.push(<div className={classes.south}></div>)
                         }
                         if (key === 'e_to' && fields[key] > 0) {
-                            item.unshift(<div className={classes.east}></div>)
+                            item.push(<div className={classes.east}></div>)
                         }
                         if (key === 'w_to' && fields[key] > 0) {
-                            item.unshift(<div className={classes.west}></div>)
+                            item.push(<div className={classes.west}></div>)
                         }
                     }
-                    row.unshift(item)
+                    row.push(item)
+                }
+                if(i === rooms.length - 1){
+                    map.push(row)
                 }
                 console.log(i)
             }
+           console.log("*********** ", row)
         }
         return map
     }
