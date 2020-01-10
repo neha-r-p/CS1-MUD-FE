@@ -13,19 +13,26 @@ import {connect} from "react-redux";
 import {initPlayer} from "../../store/player/playerActions"
 
 const useStyles = makeStyles({
+    root: {
+        display: 'flex',
+        justifyContent: 'center',
+    },
     container: {
         position: 'relative',
-        width: GAME_WIDTH + 200,
-        height: GAME_HEIGHT,
-        margin: '20px auto',
+        paddingLeft: 43,
+        paddingTop: 13,
+        width: GAME_WIDTH,
+        height: GAME_HEIGHT + 30,
         display: 'flex',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        alignItems: 'center',
+        background: 'white',
+        border: '4px solid #543636'
     },
     containerRight: {
         display: 'flex',
-        width: '400px',
+        width: '300px',
         flexDirection: 'column',
-        // justifyContent: 'space-between',
         border: '4px solid #543636'
     }
 })
