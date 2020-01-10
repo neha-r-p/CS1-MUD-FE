@@ -85,17 +85,15 @@ function Map(props) {
         console.log("LENGTH ", rooms.length)
         if (rooms.length > 0) {
             let row = []
-            let y = 0
+            let y = 9
             for (let i = 0; i < rooms.length; i++) {
                 const item = []
                 const room = rooms[i]
                 const fields = room.fields
-                console.log(fields)
                 if (fields) {
-
                     if ( fields.y <= y) {
                         map.unshift(row)
-                        y++
+                        y--
                         row = []
                     }
                     for (const key in fields) {
