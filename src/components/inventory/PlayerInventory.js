@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Item from './Item'
 //styles
 import makeStyles from '@material-ui/core/styles/makeStyles'
@@ -32,19 +32,23 @@ const PlayerInventory = props => {
   const classes = useStyles()
 
   const [playerItems, setPlayerItems] = useState(props.playerItems)
+  
+  useEffect(() => {
+    const playerItems = props.playerItems
 
-  const numOfItems = playerItems.length - 1
-  const emptyItems = new Array(14 - numOfItems).fill(null)
+    const numOfItems = playerItems.length - 1
+    const emptyItems = new Array(14 - numOfItems).fill(null)
 
-  const completePlayerItems = playerItems.concat(emptyItems)
+    setPlayerItems(playerItems.concat(emptyItems))
+  }, [props.playerItems])
 
   return (
     <div className={classes.root}>
       <h3>INVENTORY</h3>
       <div className={classes.itemBoxes}>
-        {completePlayerItems.map(item =>
+        {playerItems.map(item =>
           item ? (
-            <Item key={item.item_id} item={item} />
+            <Item key={item.item_id} item={item} inRoom={false} />
           ) : (
             <div className={classes.itemBox}></div>
           )
@@ -55,33 +59,9 @@ const PlayerInventory = props => {
 }
 
 const mapStateToProps = state => {
-    return {
-        playerItems: state.inventory.playerItems
-    }
+  return {
+    playerItems: state.inventory.playerItems
+  }
 }
 
 export default connect(mapStateToProps)(PlayerInventory)
-
-// const dummyItems = [
-//   {
-//     item_id: 1,
-//     item_name: 'apple',
-//     item_description: 'red delicious',
-//     has_player: 1,
-//     in_room: 0
-//   },
-//   {
-//     item_id: 2,
-//     item_name: 'apple',
-//     item_description: 'granny smith',
-//     has_player: 1,
-//     in_room: 0
-//   },
-//   {
-//     item_id: 3,
-//     item_name: 'orange',
-//     item_description: 'navel',
-//     has_player: 1,
-//     in_room: 0
-//   }
-// ]
