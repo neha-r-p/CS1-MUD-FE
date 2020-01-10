@@ -4,10 +4,10 @@ import {
   INCREASE_STAMINA,
   GET_ROOM_INFO
 } from './playerTypes'
-import { ROOM_HEIGHT } from '../../components/map/utils'
+import { PLAYER_X, PLAYER_Y, ROOM_HEIGHT } from '../../components/map/utils'
 
 const initialState = {
-  position: [ROOM_HEIGHT * 3, ROOM_HEIGHT - 15],
+  position: [PLAYER_X, PLAYER_Y],
   stamina: 100
 }
 
