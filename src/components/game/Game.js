@@ -22,7 +22,7 @@ const useStyles = makeStyles({
         width: '400px',
         flexDirection: 'column',
         // justifyContent: 'space-between',
-        border: '1px solid black'
+        border: '4px solid #543636'
     }
 })
 
