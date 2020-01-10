@@ -10,7 +10,7 @@ const RoomInfo = props => {
     },[props.player.position])
 
     return (
-        <div>
+        <div style={{background: 'white'}}>
             <h3>{props.player.title}:</h3>
             <p>{props.player.description}</p>
         </div>
