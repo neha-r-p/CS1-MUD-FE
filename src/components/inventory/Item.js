@@ -11,8 +11,8 @@ import {
   playerDrop,
   roomTake
 } from '../../store/inventory/inventoryActions'
-import { store } from '../../index'
-import { INCREASE_STAMINA } from '../../store/player/playerTypes'
+import {store} from '../../index'
+import {INCREASE_STAMINA} from "../../store/player/playerTypes"
 
 const useStyles = makeStyles({
   itemBox: {
@@ -46,11 +46,8 @@ function Item({ item, inRoom, roomTake, playerEat, playerDrop }) {
     } else if (!inRoom && e.nativeEvent.which === 1) {
       playerEat(item)
       const stamina = store.getState().player.stamina
-      console.log('stamina from items', stamina)
-      store.dispatch({
-        type: INCREASE_STAMINA,
-        payload: { stamina: stamina <= 95 ? stamina + 5 : 100 }
-      })
+      console.log("stamina from items", stamina)
+      store.dispatch({type: INCREASE_STAMINA, payload: {stamina: stamina <= 95 ? stamina + 5 : 100}})
     } else if (!inRoom && e.type === 'contextmenu') {
       e.preventDefault()
       playerDrop(item)
