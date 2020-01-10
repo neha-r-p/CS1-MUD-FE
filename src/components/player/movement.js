@@ -32,16 +32,20 @@ function generateMap() {
                 console.log("!(fields.y === y) ",!(fields.y === y))
                 if (!(fields.y === y)) {
                     // console.log("fields.y === y: ", fields.y === y, "; fields.y =", fields.y, ", y = ", y)
-                    if (y % 2 === 0) {
-                        console.log("push ", i)
+                    if (!(y % 2 === 0)) {
+                        console.log("NORMAL ", i)
                         map.unshift(row)
-                    } else map.unshift(row)
+                    } else {
+                        console.log("REVERSE ", i)
+                        map.unshift(row.reverse())
+
+                    }
                     y--
                     row = []
                     row.unshift(fields)
                 }else {
                     row.unshift(fields)
-                    console.log("item was added ", y)
+                    // console.log("item was added ", y)
                 }
             }
 
