@@ -47,8 +47,7 @@ function Item({ item, inRoom, roomTake, playerEat, playerDrop }) {
       playerEat(item)
       const stamina = store.getState().player.stamina
       console.log("stamina from items", stamina)
-      store.dispatch({type: INCREASE_STAMINA, payload: {stamina: stamina + 5}})
-      console.log("stamina after eat", stamina)
+      store.dispatch({type: INCREASE_STAMINA, payload: {stamina: stamina <= 95 ? stamina + 5 : 100}})
     } else if (!inRoom && e.type === 'contextmenu') {
       e.preventDefault()
       playerDrop(item)
