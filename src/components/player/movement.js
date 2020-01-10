@@ -19,7 +19,7 @@ function getNewPosition(direction) {
 }
 
 function generateMap() {
-    const rooms = store.getState().map.rooms.reverse()
+    const rooms = store.getState().map.rooms
     let map = []
     if (rooms.length > 0) {
         let row = []
@@ -29,20 +29,25 @@ function generateMap() {
             const room = rooms[i]
             const fields = room.fields
             if (fields) {
-                if (fields.y === y) {
-                    console.log("fields.y === y: ", fields.y === y, "; fields.y =", fields.y, ", y = ", y)
-                    if (!(fields.y % 2 === 0)) {
+                console.log("!(fields.y === y) ",!(fields.y === y))
+                if (!(fields.y === y)) {
+                    // console.log("fields.y === y: ", fields.y === y, "; fields.y =", fields.y, ", y = ", y)
+                    if (y % 2 === 0) {
                         console.log("push ", i)
                         map.unshift(row)
-                    } else map.unshift(row.reverse())
+                    } else map.unshift(row)
                     y--
                     row = []
+                    row.unshift(fields)
+                }else {
+                    row.unshift(fields)
+                    console.log("item was added ", y)
                 }
-                row.unshift(fields)
             }
 
         }
-        console.log("MAP ", map)
+        map.unshift(row)
+        console.log("MAP ", map.reverse())
     }
     return map
 }
@@ -83,8 +88,9 @@ function dispatchMove(newPos) {
 
 function attemptMove(direction) {
     const newPos = getNewPosition(direction)
-    console.log("observePath(generateMap(), newPos, direction) ", observePath(generateMap(), store.getState().player.position, direction))
-    if (observeBoundaries(newPos), observePath(generateMap(), store.getState().player.position, direction)) {
+    generateMap()
+    // console.log("observePath(generateMap(), newPos, direction) ", observePath(generateMap(), store.getState().player.position, direction))
+    if (observeBoundaries(newPos)) {
         dispatchMove(newPos)
     }
 }
