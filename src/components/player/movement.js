@@ -3,6 +3,7 @@ import {MOVE_PLAYER, REDUCE_STAMINA} from "../../store/player/playerTypes";
 import {PLAYER_X, PLAYER_Y, ROOM_HEIGHT, ROOM_WIDTH, TAIL_SIZE} from "../map/utils";
 import {store} from '../../index'
 import {GAME_HEIGHT, GAME_WIDTH} from "../game/utils";
+import {move} from "../../store/player/playerActions";
 
 function getNewPosition(direction) {
     const oldPos = store.getState().player.position
@@ -75,11 +76,12 @@ function observePath(rooms, newPos, d) {
     return false
 }
 
-function dispatchMove(newPos) {
+function dispatchMove(newPos, direction) {
     const stamina = store.getState().player.stamina
     if (stamina > 0) {
         store.dispatch({type: REDUCE_STAMINA, payload: {stamina: stamina - 1}})
         store.dispatch({type: MOVE_PLAYER, payload: {position: newPos}})
+        move({"direction": direction.slice(0, 1)})
     } else {
         store.dispatch({type: MOVE_PLAYER, payload: {position: [PLAYER_X, PLAYER_Y]}})
         store.dispatch({type: REDUCE_STAMINA, payload: {stamina: 100}})
@@ -92,7 +94,7 @@ function attemptMove(direction) {
     generateMap()
     console.log("observePath(generateMap(), newPos, direction) ", observePath(generateMap(), store.getState().player.position, direction))
     if (observeBoundaries(newPos) && observePath(generateMap(), store.getState().player.position, direction)) {
-        dispatchMove(newPos)
+        dispatchMove(newPos, direction)
     }
 }
 
