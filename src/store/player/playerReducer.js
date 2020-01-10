@@ -85,4 +85,3 @@ const playerReducer = (state = initialState, {payload, type}) => {
 }
 
 export default playerReducer
-  
