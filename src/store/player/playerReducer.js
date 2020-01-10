@@ -1,4 +1,4 @@
-import {MOVE_PLAYER, REDUCE_STAMINA} from "./playerTypes";
+import {MOVE_PLAYER, REDUCE_STAMINA, INCREASE_STAMINA} from "./playerTypes";
 import {ROOM_HEIGHT} from "../../components/map/utils";
 
 const initialState = {
@@ -14,6 +14,11 @@ const playerReducer = (state = initialState, {payload, type}) => {
                 position: payload.position
             }
         case REDUCE_STAMINA:
+            return {
+                ...state,
+                stamina: payload.stamina
+            }
+        case INCREASE_STAMINA:
             return {
                 ...state,
                 stamina: payload.stamina

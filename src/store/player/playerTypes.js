@@ -1,3 +1,5 @@
 export const MOVE_PLAYER = 'MOVE_PLAYER'
 
 export const REDUCE_STAMINA = 'REDUCE_STAMINA'
+
+export const INCREASE_STAMINA = 'INCREASE_STAMINA'
