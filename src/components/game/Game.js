@@ -9,19 +9,26 @@ import Stamina from "../stamina/Stamina";
 import {GAME_HEIGHT, GAME_WIDTH} from "./utils";
 
 const useStyles = makeStyles({
+    root: {
+        display: 'flex',
+        justifyContent: 'center',
+    },
     container: {
         position: 'relative',
-        width: GAME_WIDTH + 200,
-        height: GAME_HEIGHT,
-        margin: '20px auto',
+        paddingLeft: 43,
+        paddingTop: 13,
+        width: GAME_WIDTH,
+        height: GAME_HEIGHT + 30,
         display: 'flex',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        alignItems: 'center',
+        background: 'white',
+        border: '4px solid #543636'
     },
     containerRight: {
         display: 'flex',
-        width: '400px',
+        width: '300px',
         flexDirection: 'column',
-        // justifyContent: 'space-between',
         border: '4px solid #543636'
     }
 })
@@ -29,18 +36,19 @@ const useStyles = makeStyles({
 function Game() {
     const classes = useStyles()
 
-   return(
-       <div className={classes.container}>
-           <Map />
-           <div className={classes.containerRight}>
-               <Stamina/>
-               <Direction />
-               <RoomInventory />
-               <PlayerInventory />
-           </div>
-
-       </div>
-   )
+    return (
+        <div className={classes.root}>
+            <div className={classes.container}>
+                <Map/>
+            </div>
+            <div className={classes.containerRight}>
+                <Stamina/>
+                <Direction />
+                <RoomInventory />
+                <PlayerInventory />
+            </div>
+        </div>
+    )
 }
 
 export default Game
