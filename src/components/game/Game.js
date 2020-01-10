@@ -1,12 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Map from '../map/Map'
 import Direction from '../direction/Direction'
 import RoomInventory from '../inventory/RoomInventory';
 import PlayerInventory from '../inventory/PlayerInventory';
+import RoomInfo from '../inventory/RoomInfo';
 //styles
 import makeStyles from '@material-ui/core/styles/makeStyles'
 import Stamina from "../stamina/Stamina";
 import {GAME_HEIGHT, GAME_WIDTH} from "./utils";
+//store
+import {connect} from "react-redux";
+import {initPlayer} from "../../store/player/playerActions"
 
 const useStyles = makeStyles({
     root: {
@@ -33,8 +37,13 @@ const useStyles = makeStyles({
     }
 })
 
-function Game() {
+function Game(props) {
     const classes = useStyles()
+
+    useEffect(() => {
+        props.initPlayer()
+    }, [])
+
 
     return (
         <div className={classes.root}>
@@ -45,10 +54,11 @@ function Game() {
                 <Stamina/>
                 <Direction />
                 <RoomInventory />
+                <RoomInfo />
                 <PlayerInventory />
             </div>
         </div>
     )
 }
 
-export default Game
+export default connect(null, { initPlayer })(Game)
