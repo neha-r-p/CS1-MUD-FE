@@ -39,7 +39,7 @@ const playerReducer = (state = initialState, {payload, type}) => {
                 title: payload.title,
                 description: payload.description,
                 players: payload.players,
-                // stamina: payload.stamina
+                stamina: payload.stamina
             }
         case PLAYER_MOVE_FAILURE:
             return {

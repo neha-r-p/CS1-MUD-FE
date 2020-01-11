@@ -31,8 +31,9 @@ export const currentRoom = player => dispatch => {
 export const move = (data) => dispatch => {
     dispatch({type: PLAYER_MOVE_START})
     axiosWithAuth()
-        .post('/api/adv/move/', {"direction": data.direction})
+        .post('/api/adv/move/', {"direction": data.direction, x: data.x, y: data.y})
         .then(res => {
+            console.log("**********", res)
             dispatch({
                 type: PLAYER_MOVE_SUCCESS,
                 payload: {

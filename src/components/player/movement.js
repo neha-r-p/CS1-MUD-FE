@@ -79,11 +79,12 @@ function observePath(rooms, newPos, d) {
 function dispatchMove(newPos, direction, move) {
     const stamina = store.getState().player.stamina
     if (stamina > 0) {
-        store.dispatch({type: REDUCE_STAMINA, payload: {stamina: stamina - 1}})
+        // store.dispatch({type: REDUCE_STAMINA, payload: {stamina: stamina - 1}})
         // store.dispatch({type: MOVE_PLAYER, payload: {position: newPos}})
-        move({"direction": direction.slice(0, 1), position: newPos})
+        move({"direction": direction.slice(0, 1), position: newPos, x: newPos[0], y: newPos[1]})
     } else {
         store.dispatch({type: MOVE_PLAYER, payload: {position: [PLAYER_X, PLAYER_Y]}})
+        // move({"direction": direction.slice(0, 1), position: {position: [PLAYER_X, PLAYER_Y]}})
         store.dispatch({type: REDUCE_STAMINA, payload: {stamina: 100}})
     }
 
