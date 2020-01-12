@@ -1,9 +1,9 @@
 import React from 'react'
-import {MOVE_PLAYER, REDUCE_STAMINA} from "../../store/player/playerTypes";
 import {PLAYER_X, PLAYER_Y, ROOM_HEIGHT, ROOM_WIDTH, TAIL_SIZE} from "../map/utils";
 import {store} from '../../index'
-import {GAME_HEIGHT, GAME_WIDTH} from "../game/utils";
-import {GET_ROOMS_ITEMS} from "../../store/inventory/inventoryTypes";
+import {GAME_HEIGHT, GAME_WIDTH, LAST_ROOM} from "../game/utils";
+//animation
+import confetti from "canvas-confetti";
 
 
 function getNewPosition(direction) {
@@ -81,18 +81,20 @@ function observePath(rooms, newPos, d) {
 function dispatchMove(newPos, oldPos, direction, move) {
     // const stamina = store.getState().player.stamina
     move({"direction": direction.slice(0, 1), position: oldPos, x: newPos[0], y: newPos[1]})
-    // store.dispatch({type: GET_ROOMS_ITEMS, payload: {room_id: store.getState().player.room_id}})
-    // if (stamina > 0) {
-    //     // store.dispatch({type: REDUCE_STAMINA, payload: {stamina: stamina - 1}})
-    //     // store.dispatch({type: MOVE_PLAYER, payload: {position: newPos}})
-    //     move({"direction": direction.slice(0, 1), position: newPos, x: newPos[0], y: newPos[1]})
-    // } else {
-    //     move({"direction": direction.slice(0, 1), position: newPos, x: 0, y: newPos[1]})
-    //     // store.dispatch({type: MOVE_PLAYER, payload: {position: [PLAYER_X, PLAYER_Y]}})
-    //     // move({"direction": direction.slice(0, 1), position: {position: [PLAYER_X, PLAYER_Y]}})
-    //     // store.dispatch({type: REDUCE_STAMINA, payload: {stamina: 100}})
-    // }
+    if(store.getState().player.title === LAST_ROOM){
+        function r(min, max) {
+            return Math.random() * (max - min) + min;
+        }
 
+        confetti({
+            angle: r(55, 125),
+            spread: r(50, 70),
+            particleCount: r(50, 100),
+            origin: {
+                y: 0.6
+            }
+        });
+    }
 }
 
 function attemptMove(direction, move) {
