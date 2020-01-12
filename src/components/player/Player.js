@@ -22,20 +22,24 @@ const useStyles = makeStyles({
 function Player(props) {
     const classes = useStyles(props)
 
-    React.useEffect((e) => {
-        window.addEventListener('keydown', (e) => {
-            handleKeyDown(e, undefined, props.move)
-        })
+    function handleKey(e) {
+        handleKeyDown(e, undefined, props.move)
+    }
+
+    React.useEffect(() => {
+        window.addEventListener('keydown', handleKey)
+
+        return () => {
+            window.removeEventListener('keydown', handleKey)
+        }
     }, []);
 
-    React.useEffect((e) => {
-        window.removeEventListener('keydown', () => {
-            handleKeyDown(e)
-        })
-    }, []);
 
     return (
-        <div className={classes.player}/>
+        <>
+            {console.log("PLAYER ", props.position)}
+            <div className={classes.player}/>
+        </>
     )
 }
 

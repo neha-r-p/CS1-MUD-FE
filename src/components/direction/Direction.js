@@ -6,6 +6,8 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import handleMovement, {handleKeyDown} from "../player/movement";
 import Player from "../player/Player";
+import {connect} from "react-redux";
+import {move} from "../../store/player/playerActions";
 
 const useStyle = makeStyle({
     root: {
@@ -20,25 +22,24 @@ const useStyle = makeStyle({
     keys: {
         padding: 10
     },
-    title:{
+    title: {
         borderBottom: '1px solid black',
         borderTop: '1px solid black',
         paddingLeft: 10
     }
 })
 
-function Direction() {
+function Direction(props) {
     const classes = useStyle()
 
     return (
         <div className={classes.root}>
-            {/*<Typography variant={"subtitle1"} className={classes.title}><Box textAlign={"left"}>Choose a direction:</Box></Typography>*/}
             <div className={classes.keys}>
-                <Key direction={0}/>
+                <Key direction={0} {...props}/>
                 <div>
-                    <Key direction={260}/>
-                    <Key direction={180}/>
-                    <Key direction={90} name={"right"}/>
+                    <Key direction={260} {...props}/>
+                    <Key direction={180} {...props}/>
+                    <Key direction={90} name={"right"} {...props}/>
                 </div>
             </div>
         </div>
@@ -51,23 +52,23 @@ function Key(props) {
     const simulateKey = (e) => {
         switch (props.direction) {
             case 0:
-                return handleKeyDown(e, 38)
+                return handleKeyDown(e, 38, props.move)
             case 90:
-                return handleKeyDown(e, 39)
+                return handleKeyDown(e, 39, props.move)
             case 180:
-                return handleKeyDown(e, 40)
+                return handleKeyDown(e, 40, props.move)
             case 260:
-                return handleKeyDown(e, 37)
+                return handleKeyDown(e, 37, props.move)
         }
     }
 
     return (
         <Fab color="primary" aria-label={`${props.direction}`} className={`${classes.key}`}
-             onClick={(e) => simulateKey(e)}>
+             onClick={simulateKey}>
             <Navigation style={{transform: `rotate(${props.direction}deg)`}}/>
         </Fab>
     )
 }
 
 
-export default Direction
+export default connect(null, {move})(Direction)

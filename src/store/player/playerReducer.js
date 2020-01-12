@@ -15,7 +15,9 @@ const initialState = {
     title: "",
     description: "",
     isLoading: false,
-    error: ""
+    error: "",
+    room_id: 0,
+    player_id: 0,
 }
 
 const playerReducer = (state = initialState, {payload, type}) => {
@@ -31,7 +33,7 @@ const playerReducer = (state = initialState, {payload, type}) => {
                 isLoading: true,
             }
         case PLAYER_MOVE_SUCCESS:
-            console.log("MOVE_PLAYER SUCCESS *******", payload)
+            console.log("I AM HERE ", payload)
             return {
                 ...state,
                 isLoading: false,
@@ -39,7 +41,8 @@ const playerReducer = (state = initialState, {payload, type}) => {
                 title: payload.title,
                 description: payload.description,
                 players: payload.players,
-                stamina: payload.stamina
+                stamina: payload.stamina,
+                room_id: payload.room_id,
             }
         case PLAYER_MOVE_FAILURE:
             return {
@@ -71,7 +74,11 @@ const playerReducer = (state = initialState, {payload, type}) => {
             return {
                 ...state,
                 title: payload.title,
-                description: payload.description
+                description: payload.description,
+                name: payload.name,
+                position: [payload.x, payload.y],
+                player_id: payload.player_id,
+                room_id: payload.room_id,
             }
         case INIT_PLAYER_FAILURE:
             return {

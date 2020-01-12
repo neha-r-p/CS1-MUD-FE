@@ -3,6 +3,7 @@ import {MOVE_PLAYER, REDUCE_STAMINA} from "../../store/player/playerTypes";
 import {PLAYER_X, PLAYER_Y, ROOM_HEIGHT, ROOM_WIDTH, TAIL_SIZE} from "../map/utils";
 import {store} from '../../index'
 import {GAME_HEIGHT, GAME_WIDTH} from "../game/utils";
+import {GET_ROOMS_ITEMS} from "../../store/inventory/inventoryTypes";
 
 
 function getNewPosition(direction) {
@@ -30,7 +31,7 @@ function generateMap() {
             const room = rooms[i]
             const fields = room.fields
             if (fields) {
-                console.log("!(fields.y === y) ",!(fields.y === y))
+                console.log("!(fields.y === y) ", !(fields.y === y))
                 if (!(fields.y === y)) {
                     if (!(y % 2 === 0)) {
                         map.unshift(row.reverse())
@@ -42,7 +43,7 @@ function generateMap() {
                     y--
                     row = []
                     row.unshift(fields)
-                }else {
+                } else {
                     row.unshift(fields)
                 }
             }
@@ -67,6 +68,7 @@ function observePath(rooms, newPos, d) {
     if (x !== undefined && y !== undefined) {
         const nextTile = rooms[y][x]
         console.log("nextTile ", nextTile, " d=", d)
+        console.log("X = ", x, "Y ", y)
         for (const key in nextTile) {
             if (key === d && nextTile[key] > 0) {
                 return true
@@ -76,41 +78,33 @@ function observePath(rooms, newPos, d) {
     return false
 }
 
-function dispatchMove(newPos, direction, move) {
-    const stamina = store.getState().player.stamina
-    if (stamina > 0) {
-        // store.dispatch({type: REDUCE_STAMINA, payload: {stamina: stamina - 1}})
-        // store.dispatch({type: MOVE_PLAYER, payload: {position: newPos}})
-        move({"direction": direction.slice(0, 1), position: newPos, x: newPos[0], y: newPos[1]})
-    } else {
-        store.dispatch({type: MOVE_PLAYER, payload: {position: [PLAYER_X, PLAYER_Y]}})
-        // move({"direction": direction.slice(0, 1), position: {position: [PLAYER_X, PLAYER_Y]}})
-        store.dispatch({type: REDUCE_STAMINA, payload: {stamina: 100}})
-    }
+function dispatchMove(newPos, oldPos, direction, move) {
+    // const stamina = store.getState().player.stamina
+    move({"direction": direction.slice(0, 1), position: oldPos, x: newPos[0], y: newPos[1]})
+    // store.dispatch({type: GET_ROOMS_ITEMS, payload: {room_id: store.getState().player.room_id}})
+    // if (stamina > 0) {
+    //     // store.dispatch({type: REDUCE_STAMINA, payload: {stamina: stamina - 1}})
+    //     // store.dispatch({type: MOVE_PLAYER, payload: {position: newPos}})
+    //     move({"direction": direction.slice(0, 1), position: newPos, x: newPos[0], y: newPos[1]})
+    // } else {
+    //     move({"direction": direction.slice(0, 1), position: newPos, x: 0, y: newPos[1]})
+    //     // store.dispatch({type: MOVE_PLAYER, payload: {position: [PLAYER_X, PLAYER_Y]}})
+    //     // move({"direction": direction.slice(0, 1), position: {position: [PLAYER_X, PLAYER_Y]}})
+    //     // store.dispatch({type: REDUCE_STAMINA, payload: {stamina: 100}})
+    // }
 
 }
 
 function attemptMove(direction, move) {
     const newPos = getNewPosition(direction)
-    generateMap()
-    if (observeBoundaries(newPos) && observePath(generateMap(), store.getState().player.position, direction)) {
-        dispatchMove(newPos, direction, move)
+    const oldPos = store.getState().player.position
+    console.log("PATH ", observePath(generateMap(), store.getState().player.position, direction))
+    if (observeBoundaries(newPos) && observePath(generateMap(), oldPos, direction)) {
+        dispatchMove(newPos, oldPos, direction, move)
     }
-}
 
-// function dispatchMove(direction) {
-//     generateMap()
-//     const oldPos = store.getState().player.position
-//     const stamina = store.getState().player.stamina
-//     if (stamina > 0) {
-//         store.dispatch({type: REDUCE_STAMINA, payload: {stamina: stamina - 1}})
-//         store.dispatch({type: MOVE_PLAYER, payload: {position: observeBoundaries(oldPos, getNewPosition(direction))}})
-//     } else {
-//         store.dispatch({type: MOVE_PLAYER, payload: {position: [PLAYER_X, PLAYER_Y]}})
-//         store.dispatch({type: REDUCE_STAMINA, payload: {stamina: 100}})
-//     }
-//
-// }
+
+}
 
 export function handleKeyDown(e, d, move) {
     e.preventDefault()
