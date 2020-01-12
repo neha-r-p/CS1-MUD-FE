@@ -4,7 +4,7 @@ import Item from './Item'
 import makeStyles from '@material-ui/core/styles/makeStyles'
 //store
 import {connect} from 'react-redux'
-import {getRoomsItems} from "../../store/inventory/inventoryActions";
+
 
 const useStyles = makeStyles({
     root: {
@@ -42,17 +42,13 @@ const RoomInventory = props => {
         setRoomItems(roomItems.concat(emptyItems))
     }, [props.roomItems])
 
-    // useEffect(() => {
-    //     props.getRoomsItems(props.room_id)
-    // }, [props.room_id])
-
     return (
         <div className={classes.root}>
             <h3>CURRENT ROOM</h3>
             <div className={classes.itemBoxes}>
-                {roomItems.map(item =>
+                {roomItems.length > 0 && roomItems.map(item =>
                     item ? (
-                        <Item key={item.pk} item={item.fields} inRoom={true}/>
+                        <Item key={item.pk} item={item.fields} item_id={item.pk} inRoom={true}/>
                     ) : (
                         <div className={classes.itemBox}></div>
                     )
@@ -69,4 +65,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, {getRoomsItems})(RoomInventory)
+export default connect(mapStateToProps)(RoomInventory)

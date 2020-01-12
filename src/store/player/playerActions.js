@@ -10,6 +10,7 @@ import {
 import axiosWithAuth from '../../components/utils/axiosWithAuth'
 import {PLAYER_X, PLAYER_Y} from "../../components/map/utils";
 import {GET_ROOMS_ITEMS} from "../inventory/inventoryTypes";
+import {getItems} from "../inventory/inventoryActions";
 
 export const initPlayer = () => dispatch => {
     dispatch({type: INIT_PLAYER_START})

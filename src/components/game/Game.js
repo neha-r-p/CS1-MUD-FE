@@ -41,10 +41,10 @@ const useStyles = makeStyles({
 function Game(props) {
     const classes = useStyles()
     props.initPlayer()
-    props.getItems()
-    // useEffect(() => {
-    //     props.initPlayer()
-    // }, [])
+
+    useEffect(() => {
+        props.getItems()
+    }, [])
 
 
     return (
