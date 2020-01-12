@@ -27,7 +27,8 @@ const useStyles = makeStyles({
 
 function Item({ item, inRoom, roomTake, playerEat, playerDrop }) {
   const classes = useStyles()
-  const { item_name, item_id } = item
+  const { name, item_id } = item
+  const item_name = name
 
   function chooseImg() {
     switch (item_name) {

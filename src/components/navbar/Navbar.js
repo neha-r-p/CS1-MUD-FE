@@ -10,9 +10,11 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import Button from "@material-ui/core/Button";
 //logo
 import creatures from "../../assets/creatures3_.png"
+import spiders_logo from "../../assets/spiders_logo.png"
 //redux
 import {connect} from "react-redux";
 import {logout} from "../../store/auth/AuthActions";
+
 
 const useStyles = makeStyles({
     root: {
@@ -21,7 +23,8 @@ const useStyles = makeStyles({
     },
     title: {
         flexGrow: 1,
-        textAlign: 'left'
+        textAlign: 'left',
+        marginTop: 10
     },
 })
 
@@ -31,17 +34,15 @@ function Navbar(props) {
         <div className={classes.root}>
             <AppBar>
                 <Toolbar variant="dense">
-                    <img src={creatures} alt="Logo" />
-                    <Typography variant={"h5"}
-                                className={classes.title}
-                                onClick={() => props.history.push("/")}>
-                        The Egg-cellent Adventure!
-                    </Typography>
-                    {console.log("AUTH ", props.isAuth)}
+                    <img src={creatures} alt="Logo"/>
+                    <div className={classes.title}>
+                        <img src={spiders_logo} width={350}/>
+                    </div>
                     {!props.isAuth && <Button component={Link} to={'/login'} color={"secondary"}>Login</Button>}
                     {!props.isAuth && <Button component={Link} to={'/register'} color={"secondary"}>Register</Button>}
                     {props.isAuth && <Button component={Link} to={'/adventure-game'} color={"secondary"}>Game</Button>}
-                    {props.isAuth && <Button  onClick={() => props.logout(props.history)} color={"secondary"}>Log out</Button>}
+                    {props.isAuth &&
+                    <Button onClick={() => props.logout(props.history)} color={"secondary"}>Log out</Button>}
                 </Toolbar>
             </AppBar>
         </div>

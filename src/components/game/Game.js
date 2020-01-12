@@ -11,6 +11,7 @@ import {GAME_HEIGHT, GAME_WIDTH} from "./utils";
 //store
 import {connect} from "react-redux";
 import {initPlayer} from "../../store/player/playerActions"
+import {getItems} from "../../store/inventory/inventoryActions";
 
 const useStyles = makeStyles({
     root: {
@@ -39,10 +40,11 @@ const useStyles = makeStyles({
 
 function Game(props) {
     const classes = useStyles()
-
-    useEffect(() => {
-        props.initPlayer()
-    }, [])
+    props.initPlayer()
+    props.getItems()
+    // useEffect(() => {
+    //     props.initPlayer()
+    // }, [])
 
 
     return (
@@ -61,4 +63,4 @@ function Game(props) {
     )
 }
 
-export default connect(null, { initPlayer })(Game)
+export default connect(null, { initPlayer, getItems })(Game)
