@@ -51,7 +51,7 @@ function Item(props) {
             store.dispatch({type: INCREASE_STAMINA, payload: {stamina: stamina <= 95 ? stamina + 5 : 100}})
         } else if (!inRoom && e.type === 'contextmenu') {
             e.preventDefault()
-            props.room_id && playerDrop({item: item, room_id: props.room_id})
+            playerDrop({item: item, room_id: props.room_id})
         }
     }
 
