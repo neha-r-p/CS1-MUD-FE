@@ -45,7 +45,7 @@ export const move = (data) => (dispatch, getState)=> {
                     players: res.data.players,
                     stamina: res.data.stamina,
                     position: res.data.error_msg !== "You cannot move that way." ? [res.data.x, res.data.y] : [data.position[0], data.position[1]],
-                    room_id: room_id.pk
+                    room_id: room_id[0].pk
                 }
             })
             dispatch({type: GET_ROOMS_ITEMS, payload: {room_id: room_id[0].pk}})
