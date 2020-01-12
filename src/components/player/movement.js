@@ -98,29 +98,28 @@ function dispatchMove(newPos, oldPos, direction, move) {
 function attemptMove(direction, move) {
     const newPos = getNewPosition(direction)
     const oldPos = store.getState().player.position
-    console.log("PATH ", observePath(generateMap(), store.getState().player.position, direction))
+    console.log("PATH ", observePath(generateMap(), newPos, direction))
     if (observeBoundaries(newPos) && observePath(generateMap(), oldPos, direction)) {
         dispatchMove(newPos, oldPos, direction, move)
     }
-
-
 }
 
 export function handleKeyDown(e, d, move) {
+    const pending = store.getState().player.isLoading
     e.preventDefault()
     switch (e.keyCode ? e.keyCode : d) {
         //left key, west
         case 37:
-            return attemptMove('w_to', move)
+            return !pending && attemptMove('w_to', move)
         //up key, north
         case 38:
-            return attemptMove('n_to', move)
+            return !pending && attemptMove('n_to', move)
         //right key, east
         case 39:
-            return attemptMove('e_to', move)
+            return !pending && attemptMove('e_to', move)
         //down key, south
         case 40:
-            return attemptMove('s_to', move)
+            return !pending && attemptMove('s_to', move)
         default:
             console.log(e.keyCode)
     }
