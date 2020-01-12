@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, {useEffect} from 'react'
 import Map from '../map/Map'
 import Direction from '../direction/Direction'
 import RoomInventory from '../inventory/RoomInventory';
@@ -12,6 +12,7 @@ import {GAME_HEIGHT, GAME_WIDTH} from "./utils";
 import {connect} from "react-redux";
 import {initPlayer} from "../../store/player/playerActions"
 import {getItems} from "../../store/inventory/inventoryActions";
+
 
 const useStyles = makeStyles({
     root: {
@@ -41,11 +42,10 @@ const useStyles = makeStyles({
 function Game(props) {
     const classes = useStyles()
     props.initPlayer()
-    props.getItems()
-    // useEffect(() => {
-    //     props.initPlayer()
-    // }, [])
 
+    useEffect(() => {
+        props.getItems()
+    }, [])
 
     return (
         <div className={classes.root}>
@@ -54,13 +54,14 @@ function Game(props) {
             </div>
             <div className={classes.containerRight}>
                 <Stamina/>
-                <Direction />
-                <RoomInventory />
-                <RoomInfo />
-                <PlayerInventory />
+                <Direction/>
+                <RoomInventory/>
+                <RoomInfo/>
+                <PlayerInventory/>
             </div>
         </div>
     )
 }
 
-export default connect(null, { initPlayer, getItems })(Game)
+
+export default connect(null, {initPlayer, getItems})(Game)

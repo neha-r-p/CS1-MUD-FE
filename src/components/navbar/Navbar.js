@@ -34,8 +34,8 @@ function Navbar(props) {
         <div className={classes.root}>
             <AppBar>
                 <Toolbar variant="dense">
-                    <img src={creatures} alt="Logo"/>
-                    <div className={classes.title}>
+                    <img src={creatures} alt="Logo" onClick={() =>props.history.push('/')}/>
+                    <div className={classes.title} onClick={() =>props.history.push('/')}>
                         <img src={spiders_logo} width={350}/>
                     </div>
                     {!props.isAuth && <Button component={Link} to={'/login'} color={"secondary"}>Login</Button>}

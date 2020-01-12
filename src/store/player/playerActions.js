@@ -1,14 +1,15 @@
 import {
-    //   MOVE_PLAYER,
-    //   REDUCE_STAMINA,
-    //   INCREASE_STAMINA,
     GET_CURRENT_ROOM,
     INIT_PLAYER_START,
     INIT_PLAYER_SUCCESS,
-    INIT_PLAYER_FAILURE, PLAYER_MOVE_START, PLAYER_MOVE_SUCCESS, PLAYER_MOVE_FAILURE
+    INIT_PLAYER_FAILURE,
+    PLAYER_MOVE_START,
+    PLAYER_MOVE_SUCCESS,
+    PLAYER_MOVE_FAILURE
 } from './playerTypes'
+
 import axiosWithAuth from '../../components/utils/axiosWithAuth'
-import {PLAYER_X, PLAYER_Y} from "../../components/map/utils";
+
 import {GET_ROOMS_ITEMS} from "../inventory/inventoryTypes";
 
 export const initPlayer = () => dispatch => {
@@ -28,7 +29,7 @@ export const currentRoom = player => dispatch => {
     })
 }
 
-export const move = (data) => (dispatch, getState)=> {
+export const move = (data) => (dispatch, getState) => {
     dispatch({type: PLAYER_MOVE_START})
 
     axiosWithAuth()
@@ -44,7 +45,7 @@ export const move = (data) => (dispatch, getState)=> {
                     players: res.data.players,
                     stamina: res.data.stamina,
                     position: res.data.error_msg !== "You cannot move that way." ? [res.data.x, res.data.y] : [data.position[0], data.position[1]],
-                    room_id: room_id.pk
+                    room_id: room_id[0].pk
                 }
             })
             dispatch({type: GET_ROOMS_ITEMS, payload: {room_id: room_id[0].pk}})

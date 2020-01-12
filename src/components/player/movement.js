@@ -1,9 +1,9 @@
 import React from 'react'
-import {MOVE_PLAYER, REDUCE_STAMINA} from "../../store/player/playerTypes";
 import {PLAYER_X, PLAYER_Y, ROOM_HEIGHT, ROOM_WIDTH, TAIL_SIZE} from "../map/utils";
 import {store} from '../../index'
-import {GAME_HEIGHT, GAME_WIDTH} from "../game/utils";
-import {GET_ROOMS_ITEMS} from "../../store/inventory/inventoryTypes";
+import {GAME_HEIGHT, GAME_WIDTH, LAST_ROOM} from "../game/utils";
+//animation
+import confetti from "canvas-confetti";
 
 
 function getNewPosition(direction) {
@@ -81,46 +81,47 @@ function observePath(rooms, newPos, d) {
 function dispatchMove(newPos, oldPos, direction, move) {
     // const stamina = store.getState().player.stamina
     move({"direction": direction.slice(0, 1), position: oldPos, x: newPos[0], y: newPos[1]})
-    // store.dispatch({type: GET_ROOMS_ITEMS, payload: {room_id: store.getState().player.room_id}})
-    // if (stamina > 0) {
-    //     // store.dispatch({type: REDUCE_STAMINA, payload: {stamina: stamina - 1}})
-    //     // store.dispatch({type: MOVE_PLAYER, payload: {position: newPos}})
-    //     move({"direction": direction.slice(0, 1), position: newPos, x: newPos[0], y: newPos[1]})
-    // } else {
-    //     move({"direction": direction.slice(0, 1), position: newPos, x: 0, y: newPos[1]})
-    //     // store.dispatch({type: MOVE_PLAYER, payload: {position: [PLAYER_X, PLAYER_Y]}})
-    //     // move({"direction": direction.slice(0, 1), position: {position: [PLAYER_X, PLAYER_Y]}})
-    //     // store.dispatch({type: REDUCE_STAMINA, payload: {stamina: 100}})
-    // }
+    if(store.getState().player.title === LAST_ROOM){
+        function r(min, max) {
+            return Math.random() * (max - min) + min;
+        }
 
+        confetti({
+            angle: r(55, 125),
+            spread: r(50, 70),
+            particleCount: r(50, 100),
+            origin: {
+                y: 0.6
+            }
+        });
+    }
 }
 
 function attemptMove(direction, move) {
     const newPos = getNewPosition(direction)
     const oldPos = store.getState().player.position
-    console.log("PATH ", observePath(generateMap(), store.getState().player.position, direction))
+    console.log("PATH ", observePath(generateMap(), newPos, direction))
     if (observeBoundaries(newPos) && observePath(generateMap(), oldPos, direction)) {
         dispatchMove(newPos, oldPos, direction, move)
     }
-
-
 }
 
 export function handleKeyDown(e, d, move) {
+    const pending = store.getState().player.isLoading
     e.preventDefault()
     switch (e.keyCode ? e.keyCode : d) {
         //left key, west
         case 37:
-            return attemptMove('w_to', move)
+            return !pending && attemptMove('w_to', move)
         //up key, north
         case 38:
-            return attemptMove('n_to', move)
+            return !pending && attemptMove('n_to', move)
         //right key, east
         case 39:
-            return attemptMove('e_to', move)
+            return !pending && attemptMove('e_to', move)
         //down key, south
         case 40:
-            return attemptMove('s_to', move)
+            return !pending && attemptMove('s_to', move)
         default:
             console.log(e.keyCode)
     }

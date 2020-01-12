@@ -1,11 +1,20 @@
-//player types
-export const PLAYER_DROP = 'PLAYER_DROP'
-export const PLAYER_EAT = 'PLAYER_EAT'
+//player actions
+export const PLAYER_DROP_START = "PLAYER_DROP_START"
+export const PLAYER_DROP_SUCCESS = "PLAYER_DROP_SUCCESS"
+export const PLAYER_DROP_FAILURE = "PLAYER_DROP_FAILURE"
+
+// eat action
+export const PLAYER_EAT_START = 'PLAYER_EAT_START'
+export const PLAYER_EAT_SUCCESS = 'PLAYER_EAT_SUCCESS'
+export const PLAYER_EAT_FAILURE = 'PLAYER_EAT_FAILURE'
 
 //room types
-export const ROOM_TAKE = 'ROOM_TAKE'
-export const GET_ROOMS_ITEMS = 'GET_ROOMS_ITEMS'
+export const ROOM_TAKE_START = 'ROOM_TAKE_START'
+export const ROOM_TAKE_SUCCESS = 'ROOM_TAKE_SUCCESS'
+export const ROOM_TAKE_FAILURE = 'ROOM_TAKE_FAILURE'
 
+//room and inventory items
+export const GET_ROOMS_ITEMS = 'GET_ROOMS_ITEMS'
 
 //GET ITEMS
 export const GET_ITEMS_START = "GET_ITEMS_START"

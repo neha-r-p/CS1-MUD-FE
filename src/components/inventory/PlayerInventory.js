@@ -36,20 +36,18 @@ const PlayerInventory = props => {
 
     useEffect(() => {
         const playerItems = props.playerItems
-
         const numOfItems = playerItems.length - 1
         const emptyItems = new Array(14 - numOfItems).fill(null)
-
         setPlayerItems(playerItems.concat(emptyItems))
-    }, [])
+    }, [props.playerItems])
 
     return (
         <div className={classes.root}>
             <h3>INVENTORY</h3>
             <div className={classes.itemBoxes}>
-                {playerItems.map(item =>
+                {playerItems.length > 0 && playerItems.map(item =>
                     item ? (
-                        <Item key={item.item_id} item={item} inRoom={false}/>
+                        <Item key={item.pk} item={item.fields} item_id={item.pk} inRoom={false}/>
                     ) : (
                         <div className={classes.itemBox}></div>
                     )
