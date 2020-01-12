@@ -51,7 +51,7 @@ function Item(props) {
             store.dispatch({type: INCREASE_STAMINA, payload: {stamina: stamina <= 95 ? stamina + 5 : 100}})
         } else if (!inRoom && e.type === 'contextmenu') {
             e.preventDefault()
-            playerDrop(item)
+            props.room_id && playerDrop({item: item, room_id: props.room_id})
         }
     }
 
@@ -68,4 +68,10 @@ function Item(props) {
     )
 }
 
-export default connect(null, {playerEat, playerDrop, roomTake})(Item)
+const mapStatesToProps = state => {
+    return{
+        room_id: state.player.room_id,
+    }
+}
+
+export default connect(mapStatesToProps, {playerEat, playerDrop, roomTake})(Item)

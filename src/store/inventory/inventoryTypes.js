@@ -1,5 +1,8 @@
 //player types
-export const PLAYER_DROP = 'PLAYER_DROP'
+export const PLAYER_DROP_START = "PLAYER_DROP_START"
+export const PLAYER_DROP_SUCCESS = "PLAYER_DROP_SUCCESS"
+export const PLAYER_DROP_FAILURE = "PLAYER_DROP_FAILURE"
+
 export const PLAYER_EAT = 'PLAYER_EAT'
 
 //room types

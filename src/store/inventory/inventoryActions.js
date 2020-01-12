@@ -1,21 +1,23 @@
 import {
     GET_ITEMS_START,
-    GET_ITEMS_SUCCESS,
-    GET_ROOMS_ITEMS,
-    PLAYER_DROP,
+    GET_ITEMS_SUCCESS, PLAYER_DROP_FAILURE,
+    PLAYER_DROP_START,
+    PLAYER_DROP_SUCCESS,
     PLAYER_EAT, ROOM_TAKE_FAILURE,
     ROOM_TAKE_SUCCESS
 } from './inventoryTypes'
 import axiosWithAuth from "../../components/utils/axiosWithAuth";
 import {GET_ROOMS_FAILURE} from "../map/mapTypes";
-import {store} from "../../index";
 
-export const playerDrop = item => dispatch => {
+export const playerDrop = data => (dispatch, getState) => {
     console.log("drop")
-    dispatch({
-        type: PLAYER_DROP,
-        payload: item
-    })
+    dispatch({type: PLAYER_DROP_START})
+    axiosWithAuth()
+        .post("/api/adv/drop", {"item_id": data.item, "room_id": data.room_id})
+        .then(res => dispatch({type: PLAYER_DROP_SUCCESS, payload: {"item_id": data.item, "room_id": data.room_id}}))
+        .catch(err => dispatch({type: PLAYER_DROP_FAILURE, payload: err}))
+
+
 }
 
 export const playerEat = item => dispatch => {
@@ -51,6 +53,3 @@ export const getItems = () => (dispatch, getState) => {
         .catch(err => dispatch({type: GET_ROOMS_FAILURE, payload: err}))
 }
 
-export const getRoomsItems = (room_id) => dispatch => {
-    dispatch({type: GET_ROOMS_ITEMS, payload: {room_id: room_id}})
-}
