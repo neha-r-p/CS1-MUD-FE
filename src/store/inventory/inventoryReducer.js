@@ -15,21 +15,16 @@ const inventoryReducer = (state = initialState, {payload, type}) => {
                 isLoading: true,
             }
         case GET_ITEMS_SUCCESS:
-            // const playerItems = payload.items.filter(item =>{ if(payload.player_id === item.fields.player_id){ return item.fields}})
-            // const roomItems = payload.items.filter(item =>{ if(payload.room_id === item.fields.room_id){ return item.fields}})
-            // console.log("!!!!!!!!!!!!!!PLAYER ID !!!!!!!!!!!!!!!!",  payload.player_id)
-            // console.log("!!!!!!!!!!!!!!ITESMS !!!!!!!!!!!!!!!!", roomItems)
+            const initialRoomItems = payload.items.filter(item => payload.room_id === item.fields.room_id)
             return {
                 ...state,
                 isLoading: false,
                 // playerItems: playerItems,
-                allItems: payload,
+                roomItems: initialRoomItems,
+                allItems: payload.items,
             }
         case GET_ROOMS_ITEMS:
             const filteredRoomItems = state.allItems.filter(item => payload.room_id === item.fields.room_id)
-            console.log("ALL ITEMS ", state.allItems)
-            console.log("NEW FILTERED ITEMS ", filteredRoomItems)
-            console.log("payload.room_id ", payload.room_id)
             return {
                 ...state,
                 roomItems: filteredRoomItems,

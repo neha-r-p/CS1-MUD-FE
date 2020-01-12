@@ -27,14 +27,13 @@ export const roomTake = item => dispatch => {
     })
 }
 
-export const getItems = () => dispatch => {
+export const getItems = () => (dispatch, getState) => {
     dispatch({type: GET_ITEMS_START})
     axiosWithAuth()
         .get('/api/adv/items')
-        .then(res => dispatch({
-            type: GET_ITEMS_SUCCESS,
-            payload: res.data
-        }))
+        .then(res => {
+            dispatch({type: GET_ITEMS_SUCCESS, payload: {items: res.data, room_id: getState().player.room_id}})
+        })
         .catch(err => dispatch({type: GET_ROOMS_FAILURE, payload: err}))
 }
 
