@@ -1,13 +1,16 @@
 import {
-    MOVE_PLAYER,
     REDUCE_STAMINA,
     INCREASE_STAMINA,
     GET_CURRENT_ROOM,
     INIT_PLAYER_START,
     INIT_PLAYER_SUCCESS,
-    INIT_PLAYER_FAILURE, PLAYER_MOVE_START, PLAYER_MOVE_SUCCESS, PLAYER_MOVE_FAILURE
+    INIT_PLAYER_FAILURE,
+    PLAYER_MOVE_START,
+    PLAYER_MOVE_SUCCESS,
+    PLAYER_MOVE_FAILURE,
 } from './playerTypes'
-import {PLAYER_X, PLAYER_Y, ROOM_HEIGHT} from '../../components/map/utils'
+
+import {PLAYER_X, PLAYER_Y} from '../../components/map/utils'
 
 const initialState = {
     position: [PLAYER_X, PLAYER_Y],
@@ -22,18 +25,14 @@ const initialState = {
 
 const playerReducer = (state = initialState, {payload, type}) => {
     switch (type) {
-        case MOVE_PLAYER:
-            return {
-                ...state,
-                position: payload.position
-            }
+        //  MOVE ACTION
         case PLAYER_MOVE_START:
             return {
                 ...state,
                 isLoading: true,
             }
+
         case PLAYER_MOVE_SUCCESS:
-            console.log("I AM HERE ", payload)
             return {
                 ...state,
                 isLoading: false,
@@ -44,35 +43,32 @@ const playerReducer = (state = initialState, {payload, type}) => {
                 stamina: payload.stamina,
                 room_id: payload.room_id,
             }
+
         case PLAYER_MOVE_FAILURE:
             return {
                 ...state,
                 isLoading: false,
                 error: payload,
             }
-        case REDUCE_STAMINA:
-            return {
-                ...state,
-                stamina: payload.stamina
-            }
-        case INCREASE_STAMINA:
-            return {
-                ...state,
-                stamina: payload.stamina
-            }
+
         case GET_CURRENT_ROOM:
             return {
                 ...state,
                 title: payload.title,
                 description: payload.description
             }
+
+        //    INIT PLAYER
         case INIT_PLAYER_START:
             return {
-                ...state
+                ...state,
+                isLoading: true,
             }
+
         case INIT_PLAYER_SUCCESS:
             return {
                 ...state,
+                isLoading: false,
                 title: payload.title,
                 description: payload.description,
                 name: payload.name,
@@ -80,11 +76,15 @@ const playerReducer = (state = initialState, {payload, type}) => {
                 player_id: payload.player_id,
                 room_id: payload.room_id,
             }
+
         case INIT_PLAYER_FAILURE:
             return {
                 ...state,
+                isLoading: false,
                 error: payload
             }
+
+
         default:
             return state
 

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 //styles
 import makeStyles from '@material-ui/core/styles/makeStyles'
 import apple from '../../assets/apple.png'
@@ -11,8 +11,6 @@ import {
     playerDrop,
     roomTake
 } from '../../store/inventory/inventoryActions'
-import {store} from '../../index'
-import {INCREASE_STAMINA} from "../../store/player/playerTypes"
 
 const useStyles = makeStyles({
     itemBox: {
@@ -42,13 +40,16 @@ function Item(props) {
     }
 
     const handleClick = (e, item) => {
+        e.preventDefault()
         if (inRoom && e.nativeEvent.which === 1) {
+            console.log("DROP", inRoom)
             roomTake(item)
         } else if (!inRoom && e.nativeEvent.which === 1) {
-            playerEat(item)
-            const stamina = store.getState().player.stamina
-            console.log("stamina from items", stamina)
-            store.dispatch({type: INCREASE_STAMINA, payload: {stamina: stamina <= 95 ? stamina + 5 : 100}})
+            playerEat({item: item, room_id: props.room_id})
+            console.log("EAT ", inRoom)
+            // const stamina = store.getState().player.stamina
+            // console.log("stamina from items", stamina)
+            // store.dispatch({type: INCREASE_STAMINA, payload: {stamina: stamina <= 95 ? stamina + 5 : 100}})
         } else if (!inRoom && e.type === 'contextmenu') {
             e.preventDefault()
             playerDrop({item: item, room_id: props.room_id})
@@ -74,4 +75,4 @@ const mapStatesToProps = state => {
     }
 }
 
-export default connect(mapStatesToProps, {playerEat, playerDrop, roomTake})(Item)
+export default connect(mapStatesToProps, { playerEat, playerDrop, roomTake})(Item)

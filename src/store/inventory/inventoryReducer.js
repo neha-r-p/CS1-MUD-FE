@@ -5,7 +5,10 @@ import {
     PLAYER_DROP_FAILURE,
     PLAYER_DROP_START,
     PLAYER_DROP_SUCCESS,
-    PLAYER_EAT, ROOM_TAKE_FAILURE,
+    PLAYER_EAT_FAILURE,
+    PLAYER_EAT_START,
+    PLAYER_EAT_SUCCESS,
+    ROOM_TAKE_FAILURE,
     ROOM_TAKE_START,
     ROOM_TAKE_SUCCESS
 } from './inventoryTypes'
@@ -54,12 +57,12 @@ const inventoryReducer = (state = initialState, {payload, type}) => {
         //         roomItems: [...state.roomItems, ...filterRoomInventory]
         //     }
 
-        case PLAYER_EAT:
-            let filterPI = state.playerItems.filter(item => !(item.item_id === payload))
-            return {
-                ...state,
-                playerItems: filterPI
-            }
+        // case PLAYER_EAT:
+        //     let filterPI = state.playerItems.filter(item => !(item.item_id === payload))
+        //     return {
+        //         ...state,
+        //         playerItems: filterPI
+        //     }
 
         //    pick up action
         case ROOM_TAKE_START:
@@ -108,6 +111,28 @@ const inventoryReducer = (state = initialState, {payload, type}) => {
                 ...state,
                 isLoading: false,
                 error: ""
+            }
+
+        //    EAT ACTION
+        case PLAYER_EAT_START:
+            return {
+                ...state,
+                isLoading: true,
+            }
+
+        case PLAYER_EAT_SUCCESS:
+            const restOfItems = state.playerItems.filter(item => item.pk !== payload.item_id)
+            return {
+                ...state,
+                isLoading: false,
+                playerItems: restOfItems,
+            }
+
+        case PLAYER_EAT_FAILURE:
+            return {
+                ...state,
+                isLoading: false,
+                error: payload
             }
 
         default:

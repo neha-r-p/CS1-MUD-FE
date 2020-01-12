@@ -1,9 +1,12 @@
-//player types
+//player actions
 export const PLAYER_DROP_START = "PLAYER_DROP_START"
 export const PLAYER_DROP_SUCCESS = "PLAYER_DROP_SUCCESS"
 export const PLAYER_DROP_FAILURE = "PLAYER_DROP_FAILURE"
 
-export const PLAYER_EAT = 'PLAYER_EAT'
+// eat action
+export const PLAYER_EAT_START = 'PLAYER_EAT_START'
+export const PLAYER_EAT_SUCCESS = 'PLAYER_EAT_SUCCESS'
+export const PLAYER_EAT_FAILURE = 'PLAYER_EAT_FAILURE'
 
 //room types
 export const ROOM_TAKE_START = 'ROOM_TAKE_START'

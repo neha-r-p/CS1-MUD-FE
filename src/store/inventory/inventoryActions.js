@@ -3,14 +3,19 @@ import {
     GET_ITEMS_SUCCESS, PLAYER_DROP_FAILURE,
     PLAYER_DROP_START,
     PLAYER_DROP_SUCCESS,
-    PLAYER_EAT, ROOM_TAKE_FAILURE, ROOM_TAKE_START,
+    PLAYER_EAT_FAILURE,
+    PLAYER_EAT_START,
+    PLAYER_EAT_SUCCESS,
+    ROOM_TAKE_FAILURE,
+    ROOM_TAKE_START,
     ROOM_TAKE_SUCCESS
 } from './inventoryTypes'
+
 import axiosWithAuth from "../../components/utils/axiosWithAuth";
+
 import {GET_ROOMS_FAILURE} from "../map/mapTypes";
 
-export const playerDrop = data => (dispatch, getState) => {
-    console.log("drop")
+export const playerDrop = data => (dispatch) => {
     dispatch({type: PLAYER_DROP_START})
     axiosWithAuth()
         .post("/api/adv/drop", {"item_id": data.item, "room_id": data.room_id})
@@ -20,20 +25,20 @@ export const playerDrop = data => (dispatch, getState) => {
 
 }
 
-export const playerEat = item => dispatch => {
-    console.log("eat")
-    dispatch({
-        type: PLAYER_EAT,
-        payload: item
-    })
-}
-
 export const roomTake = item => dispatch => {
     dispatch({type: ROOM_TAKE_START})
     axiosWithAuth()
         .post("/api/adv/pick-up", {"item_id": item})
         .then(res => dispatch({type: ROOM_TAKE_SUCCESS, payload: res.data}))
         .catch(err => dispatch({type: ROOM_TAKE_FAILURE, payload: err}))
+}
+
+export const playerEat = data => dispatch => {
+    dispatch({type: PLAYER_EAT_START})
+    axiosWithAuth()
+        .post("/api/adv/eat", {"item_id": data.item, "room_id": data.room_id})
+        .then(res => dispatch({type: PLAYER_EAT_SUCCESS, payload:  {"item_id": data.item}}))
+        .catch(err => dispatch({type: PLAYER_EAT_FAILURE, payload: err}))
 }
 
 export const getItems = () => (dispatch, getState) => {

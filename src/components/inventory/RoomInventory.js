@@ -38,7 +38,6 @@ const RoomInventory = props => {
         const roomItems = props.roomItems
         const numOfItems = roomItems.length - 1
         const emptyItems = new Array(9 - numOfItems).fill(null)
-
         setRoomItems(roomItems.concat(emptyItems))
     }, [props.roomItems])
 

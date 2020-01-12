@@ -36,10 +36,8 @@ const PlayerInventory = props => {
 
     useEffect(() => {
         const playerItems = props.playerItems
-
         const numOfItems = playerItems.length - 1
         const emptyItems = new Array(14 - numOfItems).fill(null)
-
         setPlayerItems(playerItems.concat(emptyItems))
     }, [props.playerItems])
 

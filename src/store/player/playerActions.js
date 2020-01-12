@@ -1,16 +1,16 @@
 import {
-    //   MOVE_PLAYER,
-    //   REDUCE_STAMINA,
-    //   INCREASE_STAMINA,
     GET_CURRENT_ROOM,
     INIT_PLAYER_START,
     INIT_PLAYER_SUCCESS,
-    INIT_PLAYER_FAILURE, PLAYER_MOVE_START, PLAYER_MOVE_SUCCESS, PLAYER_MOVE_FAILURE
+    INIT_PLAYER_FAILURE,
+    PLAYER_MOVE_START,
+    PLAYER_MOVE_SUCCESS,
+    PLAYER_MOVE_FAILURE
 } from './playerTypes'
+
 import axiosWithAuth from '../../components/utils/axiosWithAuth'
-import {PLAYER_X, PLAYER_Y} from "../../components/map/utils";
+
 import {GET_ROOMS_ITEMS} from "../inventory/inventoryTypes";
-import {getItems} from "../inventory/inventoryActions";
 
 export const initPlayer = () => dispatch => {
     dispatch({type: INIT_PLAYER_START})
@@ -29,7 +29,7 @@ export const currentRoom = player => dispatch => {
     })
 }
 
-export const move = (data) => (dispatch, getState)=> {
+export const move = (data) => (dispatch, getState) => {
     dispatch({type: PLAYER_MOVE_START})
 
     axiosWithAuth()
