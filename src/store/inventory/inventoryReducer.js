@@ -69,7 +69,6 @@ const inventoryReducer = (state = initialState, {payload, type}) => {
             }
 
         case ROOM_TAKE_SUCCESS:
-            console.log("PICK UP ", payload)
             let filtRoomInv = state.roomItems.filter(item => !(item.pk === payload.item_id))
             let filtPlayerInv = state.allItems.filter(item => item.pk === payload.item_id)
 
