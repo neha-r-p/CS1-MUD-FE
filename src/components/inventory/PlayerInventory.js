@@ -11,7 +11,7 @@ const useStyles = makeStyles({
         color: '#FFF',
         backgroundColor: '#FF800A',
         minWidth: '200px',
-        height: '250px'
+        height: '240px'
     },
     itemBoxes: {
         display: 'flex',
